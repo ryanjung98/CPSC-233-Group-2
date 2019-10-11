@@ -1,11 +1,9 @@
 import java.util.ArrayList;
 import java.util.*;
 public class Board {
-// Update board from piece movement 
-// Instance variables needed: ArrayList
- // private ArrayList<Piece> pieces= new ArrayList<Piece>(32);
   private ArrayList<String> boardPrint= new ArrayList<String>();
  
+ //constructor that builds initial chess board
  public Board(){
 	String L1= "     A     B     C     D     E     F     G     H   ";
 	String L2= "  #################################################";
@@ -77,23 +75,25 @@ public class Board {
    boardPrint.add(L33);
    boardPrint.add(L34);
    }
-   
+   // loops through arraylist and prints board
    public void printBoard (){
 	   for (String s : boardPrint){
 	   System.out.println(s);}
 	   }
+	   
+	//parameter is string which is in the format "A2,B2"
 	public void changeBoard (String s){
 		int i = 0;
 		int j = 0;
 		int k = 0;
 		int l = 0;
-		String [] spl = s.split(",",2);
-		char x1 = spl[0].charAt(0);
-		char y1 = spl[0].charAt(1);
-		char x2 = spl[1].charAt(0);
-		char y2 = spl[1].charAt(1);
+		//String [] spl = s.split(",",2);
+		char x1 = s.charAt(0);
+		char y1 = s.charAt(1);
+		char x2 = s.charAt(3);
+		char y2 = s.charAt(4);
 		char piece=' ';
-		//String s1 = boardPrint.get(0);
+		
 		// first 2 for loops find a number accosiated to the letter for initial and final x positions
 		for (char letter: boardPrint.get(0).toCharArray()){
 					if (letter==x1){
@@ -105,17 +105,20 @@ public class Board {
 		for (String line : boardPrint){
 			if ( line.startsWith(Character.toString(y1))){
 						piece = line.charAt(i);
-						line.replace(piece,' ');
-						boardPrint.set(k,line);
-						System.out.println(piece);
+						String temp = line.substring(0,i)+' '+line.substring(i+1);
+						boardPrint.set(k,temp);
 					}
-					k+=1;
+					  k+=1;
 					}
 		//this loop replaced empty space with character in final position 
 		for (String line2: boardPrint){
 			if ( line2.startsWith(Character.toString(y2))){
-				line2.replace(line2.charAt(j),piece);
-					boardPrint.set(l,line2);
+				String temp2 = line2.substring(0,j)+ piece +line2.substring(j+1);
+					boardPrint.set(l,temp2);
 					}
 					l+=1;
 				}
+			
+		//return boardPrint;
+		}
+}
