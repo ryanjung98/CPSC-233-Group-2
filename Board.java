@@ -87,21 +87,21 @@ public class Board {
 		int j = 0;
 		int k = 0;
 		int l = 0;
-		//String [] spl = s.split(",",2);
+		//this stores x and y axis location or string indicy of old and new position
 		char x1 = s.charAt(0);
 		char y1 = s.charAt(1);
 		char x2 = s.charAt(3);
 		char y2 = s.charAt(4);
 		char piece=' ';
 		
-		// first 2 for loops find a number accosiated to the letter for initial and final x positions
+		//these loops store an integer that is the indicy for the old and new x location 
 		for (char letter: boardPrint.get(0).toCharArray()){
 					if (letter==x1){
 						i=boardPrint.get(0).indexOf(letter);}}
 		for (char letter: boardPrint.get(0).toCharArray()){
 					if (letter==x2){
 						j=boardPrint.get(0).indexOf(letter);}}
-		//this loop replaces initial position with an empty space
+		//This loop finds the initial y position, replaces this with an empty space and stores what piece is in that place 
 		for (String line : boardPrint){
 			if ( line.startsWith(Character.toString(y1))){
 						piece = line.charAt(i);
@@ -110,7 +110,7 @@ public class Board {
 					}
 					  k+=1;
 					}
-		//this loop replaced empty space with character in final position 
+		//this loop finds the new y position and updates string to have piece moved to new location 
 		for (String line2: boardPrint){
 			if ( line2.startsWith(Character.toString(y2))){
 				String temp2 = line2.substring(0,j)+ piece +line2.substring(j+1);
@@ -119,6 +119,6 @@ public class Board {
 					l+=1;
 				}
 			
-		//return boardPrint;
+
 		}
 }
