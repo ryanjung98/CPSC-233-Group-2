@@ -77,6 +77,7 @@ public class Board {
    }
    // loops through arraylist and prints board
    public void printBoard (){
+	   System.out.println("\033[H\033[2J");
 	   for (String s : boardPrint){
 	   System.out.println(s);}
 	   }
