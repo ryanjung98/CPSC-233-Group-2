@@ -1,124 +1,316 @@
 import java.util.ArrayList;
 import java.util.*;
+import java.lang.StringBuilder;
 public class Board {
   private ArrayList<String> boardPrint= new ArrayList<String>();
- 
+  public static ArrayList <ArrayList <Piece>> chessBoard = new ArrayList<ArrayList<Piece>>();
+  private boolean onBoard;
+  public static int turn;
+  //whichking will update in the is check method and be set to true if white king is in check and false if black king is in check 
+  public boolean whichKing;
+ // public boolean isW
  //constructor that builds initial chess board
  public Board(){
-	String L1= "     A     B     C     D     E     F     G     H   ";
-	String L2= "  #################################################";
-	String L3= "  #     #     #     #     #     #     #     #     #";
-	String L4= "7 #  R  #  N  #  B  #  Q  #  K  #  B  #  N  #  R  #";
-	String L5= "  #     #     #     #     #     #     #     #     #";
-	String L6= "  #################################################";
-	String L7= "  #     #     #     #     #     #     #     #     #";
-	String L8= "6 #  P  #  P  #  P  #  P  #  P  #  P  #  P  #  P  #";
-	String L9= "  #     #     #     #     #     #     #     #     #";
-   String L10= "  #################################################";
-   String L11= "  #     #     #     #     #     #     #     #     #";
-   String L12= "5 #     #     #     #     #     #     #     #     #";
-   String L13= "  #     #     #     #     #     #     #     #     #";
-   String L14= "  #################################################";
-   String L15= "  #     #     #     #     #     #     #     #     #";
-   String L16= "4 #     #     #     #     #     #     #     #     #";
-   String L17= "  #     #     #     #     #     #     #     #     #";
-   String L18= "  #################################################";
-   String L19= "  #     #     #     #     #     #     #     #     #";
-   String L20= "3 #     #     #     #     #     #     #     #     #";
-   String L21= "  #     #     #     #     #     #     #     #     #";
-   String L22= "  #################################################";
-   String L23= "  #     #     #     #     #     #     #     #     #";
-   String L24= "2 #     #     #     #     #     #     #     #     #";
-   String L25= "  #     #     #     #     #     #     #     #     #";
-   String L26= "  #################################################";
-   String L27= "  #     #     #     #     #     #     #     #     #";
-   String L28= "1 #  P  #  P  #  P  #  P  #  P  #  P  #  P  #  P  #";
-   String L29= "  #     #     #     #     #     #     #     #     #";
-   String L30= "  #################################################";
-   String L31= "  #     #     #     #     #     #     #     #     #";
-   String L32= "0 #  R  #  N  #  B  #  Q  #  K  #  B  #  N  #  R  #";
-   String L33= "  #     #     #     #     #     #     #     #     #";
-   String L34= "  #################################################";
+	
+	 ArrayList<String> line= new ArrayList<String>();
+   line.add("                                                    ");
+   line.add("      A     B     C     D     E     F     G     H   ");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("7  #  R  #  N  #  B  #  Q  #  K  #  B  #  N  #  R  #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("6  #  P  #  P  #  P  #  P  #  P  #  P  #  P  #  P  #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("5  #     #     #     #     #     #     #     #     #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("4  #     #     #     #     #     #     #     #     #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("3  #     #     #     #     #     #     #     #     #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("2  #     #     #     #     #     #     #     #     #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("1  #  P  #  P  #  P  #  P  #  P  #  P  #  P  #  P  #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("0  #  R  #  N  #  B  #  Q  #  K  #  B  #  N  #  R  #");
+   line.add("   #     #     #     #     #     #     #     #     #");
+   line.add("   #################################################");
+
+   for (String s : line){
+	   boardPrint.add(s);
+	   }
+	   
+//initializes chessBoard to have all spots filled with null
+
+for (int i=0;i<8;i++){
+	chessBoard.add(new ArrayList<Piece>());
+	for (int j=0;j<8;j++){
+		chessBoard.get(i).add(j,null);
+		}
+	}
+	   //rooks
+   chessBoard.get(0).set(0,new Rook (0,0,false));
+   chessBoard.get(0).set(7,new Rook (0,7,true));
+   chessBoard.get(7).set(0,new Rook (7,0,false));
+   chessBoard.get(7).set(7,new Rook (7,7,true));
    
-   boardPrint.add(L1);
-   boardPrint.add(L2);
-   boardPrint.add(L3);
-   boardPrint.add(L4);
-   boardPrint.add(L5);
-   boardPrint.add(L6);
-   boardPrint.add(L7);
-   boardPrint.add(L8);
-   boardPrint.add(L9);
-   boardPrint.add(L10);
-   boardPrint.add(L11);
-   boardPrint.add(L12);
-   boardPrint.add(L13);
-   boardPrint.add(L14);
-   boardPrint.add(L15);
-   boardPrint.add(L16);
-   boardPrint.add(L17);
-   boardPrint.add(L18);
-   boardPrint.add(L19);
-   boardPrint.add(L20);
-   boardPrint.add(L21);
-   boardPrint.add(L22);
-   boardPrint.add(L23);
-   boardPrint.add(L24);
-   boardPrint.add(L25);
-   boardPrint.add(L26);
-   boardPrint.add(L27);
-   boardPrint.add(L28);
-   boardPrint.add(L29);
-   boardPrint.add(L30);
-   boardPrint.add(L31);
-   boardPrint.add(L32);
-   boardPrint.add(L33);
-   boardPrint.add(L34);
+   //knights
+     chessBoard.get(1).set(0,new Knight (1,0,false));
+   chessBoard.get(1).set(7,new Knight(1,7,true));
+   chessBoard.get(6).set(0,new Knight (6,0,false));
+   chessBoard.get(6).set(7,new Knight(6,7,true));
+
+   
+   //Bishops
+   chessBoard.get(2).set(0,new Bishop (2,0,false));
+   chessBoard.get(2).set(7,new Bishop(2,7,true));
+   chessBoard.get(5).set(0,new Bishop (5,0,false));
+   chessBoard.get(5).set(7,new Bishop(5,7,true));
+   
+   
+   //Queens
+   chessBoard.get(3).set(0,new Queen(3,0,false));
+    chessBoard.get(3).set(7,new Queen(3,7,true));
+   
+   //Kings
+      chessBoard.get(4).set(0,new King(4,0,false));
+    chessBoard.get(4).set(7,new King(4,7,true));
+   
+   //pawns
+   
+   for(int i=0; i<8;i++){
+	   chessBoard.get(i).set(1,new Pawn(i,1,false));
+	   chessBoard.get(i).set(6,new Pawn(i,6,true));
+	   }
+   
    }
    // loops through arraylist and prints board
    public void printBoard (){
+	  // System.out.println("\033[H\033[2J");
 	   for (String s : boardPrint){
 	   System.out.println(s);}
 	   }
 	   
 	//parameter is string which is in the format "A2,B2"
-	public void changeBoard (String s){
+	public boolean scanBoard (String s){
+		this.turn=Game.turn;
+		boolean move;
+		boolean check;
+		int tester=0;
 		int i = 0;
-		int j = 0;
 		int k = 0;
 		int l = 0;
-		//this stores x and y axis location or string indicy of old and new position
+		int j = 0;
+		//String [] spl = s.split(",",2);
 		char x1 = s.charAt(0);
 		char y1 = s.charAt(1);
 		char x2 = s.charAt(3);
 		char y2 = s.charAt(4);
-		char piece=' ';
+		char piece;
+		//chessBoard indicies of pieces 
 		
-		//these loops store an integer that is the indicy for the old and new x location 
-		for (char letter: boardPrint.get(0).toCharArray()){
-					if (letter==x1){
-						i=boardPrint.get(0).indexOf(letter);}}
-		for (char letter: boardPrint.get(0).toCharArray()){
-					if (letter==x2){
-						j=boardPrint.get(0).indexOf(letter);}}
-		//This loop finds the initial y position, replaces this with an empty space and stores what piece is in that place 
-		for (String line : boardPrint){
-			if ( line.startsWith(Character.toString(y1))){
-						piece = line.charAt(i);
-						String temp = line.substring(0,i)+' '+line.substring(i+1);
-						boardPrint.set(k,temp);
-					}
-					  k+=1;
-					}
-		//this loop finds the new y position and updates string to have piece moved to new location 
-		for (String line2: boardPrint){
-			if ( line2.startsWith(Character.toString(y2))){
-				String temp2 = line2.substring(0,j)+ piece +line2.substring(j+1);
-					boardPrint.set(l,temp2);
-					}
-					l+=1;
+		
+		i=this.getXFromChar(x1);
+		j=this.getXFromChar(x2);
+		l=this.getYFromChar(y1);
+		k=this.getYFromChar(y2);
+		
+		//check returned expected results for A1,A3: 6,6,28,20
+		//System.out.println(i+","+j+","+l+","+k);
+		
+		int Cx1=(i/6)-1;
+		int Cx2=(j/6)-1;
+		int Cy1=(l/4)-1;
+		int Cy2=(k/4)-1;
+		
+		//second check for C;s, returned correct result 0,0,6,4
+		//System.out.println(Cx1+","+Cx2+","+Cy1+","+Cy2);
+		
+		//third check what piece is in Cx1,Cy1
+		//System.out.println(chessBoard.get(Cx1).get(Cy1).g);
+		
+		//doesnt matter whether we get the piece from the string board or the piece board because we will update after each turn 
+		//need a way to test if after a move a team will be in check.
+		piece = this.getPiece(i,l);
+		
+		//line below doesnt work because x1, y1 are chars
+		//System.out.println(piece);
+		if ((Cx1<0||Cx1>7)||(Cx2<0||Cx2>7)||(Cy1<0||Cy1>7)||(Cy2<0||Cy2>7)){
+			move=false;
+			
+			//tester+=1;
+			}
+			
+		else{
+		//System.out.println(chessBoard.get(Cx2).get(Cy2).getP());	
+		move=getPieceMove(Cx1,Cy1,Cx2,Cy2);
+		//System.out.println(move);
+		}
+		//System.out.println(move);
+		if (move==true){
+			
+			check=isCheck(isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2));
+			System.out.println(check+","+chessBoard.get(Cx1).get(Cy1).getW()+","+this.whichKing);
+			//System.out.println("hi");
+			if (check==true&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){
+				System.out.println("offboard");
+				move=false;
+				}
+			else if (check==false||(check==true&&this.whichKing!=chessBoard.get(Cx1).get(Cy1).getW())){
+			chessBoard.get(Cx1).get(Cy1).setX(Cx2);
+			chessBoard.get(Cx1).get(Cy1).setY(Cy2);
+			chessBoard.get(Cx2).set(Cy2,chessBoard.get(Cx1).get(Cy1));
+			chessBoard.get(Cx1).set(Cy1,null);}
+			this.updateBoardFromArray();
+			}
+		//System.out.println(move);
+		
+		return move;
+	}
+		
+//this method returns true if piece p in x1,y1 can move to x2,y2	
+	
+public boolean getPieceMove(int x1, int y1, int x2, int y2){
+	boolean move;
+	
+		move = chessBoard.get(x1).get(y1).canMove(x2,y2);
+		//ASystem.out.println(chessBoard.get(x1).get(y1).getX()+","+chessBoard.get(x1).get(y1).getY());
+		//System.out.println(chessBoard.get(x1).get(y1).getP());
+		return move;
+		}
+// this will update the board printed to the console from the piece array 	
+public void updateBoardFromArray(){
+	char piece;
+	String line;
+	String temp;
+	for (int i=0; i<chessBoard.size();i++){
+		for (int j=0; j<chessBoard.get(i).size();j++){
+			if (chessBoard.get(i).get(j)== null){
+				line = boardPrint.get(4*(j+1));
+				temp = line.substring(0,6*(i+1))+' '+line.substring(6*(i+1)+1);
+				boardPrint.set(4*(j+1),temp);
+				}
+			else{
+				piece=chessBoard.get(i).get(j).getP();
+				line = boardPrint.get(4*(j+1));
+				temp = line.substring(0,6*(i+1))+piece+line.substring(6*(i+1)+1);
+				boardPrint.set(4*(j+1),temp);
 				}
 			
-
+			}
 		}
+	
+	}
+//this returns the integer index of x
+public int getXFromChar(char x){
+int i=0;
+for (char letter: boardPrint.get(1).toCharArray()){
+					if (letter==x){
+						i=boardPrint.get(1).indexOf(letter);}}
+		return i;
+		}
+//this returns the integer index of y
+public int getYFromChar(char y){
+	int i=0;
+	int n=0;
+	for (String line : boardPrint){
+		if ( line.startsWith(Character.toString(y))){
+			n=i;
+			}
+		i+=1;
+		}
+	return n;
+	}
+//this returns the character of the piece n the console board
+public char getPiece(int x, int y){
+	char piece = boardPrint.get(y).charAt(x);
+	return piece;		
+}
+//getter
+public boolean getOnB(){
+	return this.onBoard;
+	}
+//this only tells if after a move happens one team is in check, this is only used in the game class, there is another method.
+public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
+	//System.out.println(chess);
+	int n = 0;
+	for (int i=0; i<chess.size();i++){
+		for (int j=0; j<chess.get(i).size();j++){
+			if (chess.get(i).get(j)!=null){
+			if (chess.get(i).get(j).getP()=='K'){
+				//System.out.println("KingTest   "+chess.get(i).get(j).getW());
+				//i, and j are the location of a king, so now rescan board to check if any of the players can move to i, j
+				for (int k=0;k<chess.size();k++){
+					for (int l=0; l<chess.get(k).size();l++){
+						if (chess.get(k).get(l)!=null){
+							if (chess.get(i).get(j).getW()!=chess.get(k).get(l).getW()){
+								//System.out.println("check test     "+chess.get(i).get(j).getW()+chess.get(k).get(l).getP());
+								if (chess.get(k).get(l).canMove(i,j)== true){
+								//if (chess.get(k).get(l).getP()=='Q'){
+									//chess.get(k).get(l).getRookBishop();
+								//	}
+								System.out.println(chess.get(k).get(l).getP()+","+chess.get(k).get(l).getX()+","+chess.get(k).get(l).getY()+","+chess.get(k).get(l).getW()+","+chess.get(i).get(j).getW()+","+chess.get(i).get(j).getY());
+								this.whichKing = chess.get(i).get(j).getW();
+								n+=1;
+								}
+							}
+					}}
+				
+				
+				}}
+		
+		}}}
+		if (n>=1){
+		return true;	
+		}
+		else return false;
+	}
+public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, int y2){
+	
+	ArrayList <ArrayList <Piece>> dummy = new ArrayList<ArrayList<Piece>>();
+	//initializes dummy chessboard to what it currently is 
+	for (int i=0;i<8;i++){
+	dummy.add(new ArrayList<Piece>());
+	for (int j=0;j<8;j++){
+		dummy.get(i).add(j,null);
+		}
+	}
+	for (int i=0; i<chessBoard.size();i++){
+		for (int j=0; j<chessBoard.get(i).size();j++){
+			dummy.get(i).set(j,chessBoard.get(i).get(j));
+	}}
+	//now moves the possible move x1 and x2
+	if (dummy.get(0).get(4)!= null){
+	System.out.println("This is a test"+ dummy.get(0).get(4).getP()+","+dummy.get(0).get(4).getW());}
+	dummy.get(x1).get(y1).setX(x2);
+	dummy.get(x1).get(y1).setY(y2);
+	dummy.get(x2).set(y2,dummy.get(x1).get(y1));
+	dummy.get(x1).set(y1,null);
+	System.out.println("This is a test"+ dummy.get(x2).get(y2).getX() + dummy.get(x2).get(y2).getY());
+	printArray(dummy);
+	return dummy;
+}
+
+public void printArray(ArrayList <ArrayList <Piece>> chess){
+	for (int i=0; i<8;i++){
+		for (int j=0;j<8;j++){
+			if (chess.get(i).get(j)!=null){
+			System.out.println(chess.get(i).get(j).getP()+","+chess.get(i).get(j).getX()+","+chess.get(i).get(j).getY()+","+chess.get(i).get(j).getW());}
+		}
+		}
+	
+	}
 }
