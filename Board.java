@@ -55,7 +55,7 @@ public class Board {
 	   
 //initializes chessBoard to have all spots filled with null
 
-for (int i=0;i<8;i++){ //Initializing all pieces
+for (int i=0;i<8;i++){
 	chessBoard.add(new ArrayList<Piece>());
 	for (int j=0;j<8;j++){
 		chessBoard.get(i).add(j,null);
@@ -157,7 +157,8 @@ for (int i=0;i<8;i++){ //Initializing all pieces
 		else{
 		//System.out.println(chessBoard.get(Cx2).get(Cy2).getP());	
 		move=getPieceMove(Cx1,Cy1,Cx2,Cy2);
-		//System.out.println(move);
+		
+		System.out.println(Cx1+","+Cy1+","+Cx2+","+Cy2);
 		}
 		//System.out.println(move);
 		if (move==true){
@@ -165,7 +166,7 @@ for (int i=0;i<8;i++){ //Initializing all pieces
 			check=isCheck(isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2));
 			System.out.println(check+","+chessBoard.get(Cx1).get(Cy1).getW()+","+this.whichKing);
 			//System.out.println("hi");
-			if (check==true&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){// Checks if they are the same color
+			if (check==true&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){
 				System.out.println("offboard");
 				move=false;
 				}
@@ -215,7 +216,7 @@ public void updateBoardFromArray(){
 	
 	}
 //this returns the integer index of x
-public int getXFromChar(char x){//Matching the x values
+public int getXFromChar(char x){
 int i=0;
 for (char letter: boardPrint.get(1).toCharArray()){
 					if (letter==x){
@@ -223,7 +224,7 @@ for (char letter: boardPrint.get(1).toCharArray()){
 		return i;
 		}
 //this returns the integer index of y
-public int getYFromChar(char y){//Matching the y values
+public int getYFromChar(char y){
 	int i=0;
 	int n=0;
 	for (String line : boardPrint){
@@ -290,16 +291,35 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 	}
 	for (int i=0; i<chessBoard.size();i++){
 		for (int j=0; j<chessBoard.get(i).size();j++){
-			dummy.get(i).set(j,chessBoard.get(i).get(j));
+			if (chessBoard.get(i).get(j)!=null){
+			if (chessBoard.get(i).get(j).getP()=='P'){
+				dummy.get(i).set(j,new Pawn(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				}
+			else if (chessBoard.get(i).get(j).getP()=='R'){
+				dummy.get(i).set(j,new Rook(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				}
+			else if (chessBoard.get(i).get(j).getP()=='N'){
+				dummy.get(i).set(j,new Knight(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				}
+			else if (chessBoard.get(i).get(j).getP()=='B'){
+				dummy.get(i).set(j,new Bishop(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				}
+			else if (chessBoard.get(i).get(j).getP()=='Q'){
+				dummy.get(i).set(j,new Queen(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				}
+			else if (chessBoard.get(i).get(j).getP()=='K'){
+				dummy.get(i).set(j,new King(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				}}
+		
 	}}
 	//now moves the possible move x1 and x2
-	if (dummy.get(0).get(4)!= null){
-	System.out.println("This is a test"+ dummy.get(0).get(4).getP()+","+dummy.get(0).get(4).getW());}
+	//if (dummy.get(0).get(4)!= null){
+	//System.out.println("This is a test"+ dummy.get(0).get(4).getP()+","+dummy.get(0).get(4).getW());}
 	dummy.get(x1).get(y1).setX(x2);
 	dummy.get(x1).get(y1).setY(y2);
 	dummy.get(x2).set(y2,dummy.get(x1).get(y1));
 	dummy.get(x1).set(y1,null);
-	System.out.println("This is a test"+ dummy.get(x2).get(y2).getX() + dummy.get(x2).get(y2).getY());
+	//System.out.println("This is a test"+ dummy.get(x2).get(y2).getX() + dummy.get(x2).get(y2).getY());
 	printArray(dummy);
 	return dummy;
 }
