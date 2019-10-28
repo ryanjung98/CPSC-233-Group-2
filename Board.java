@@ -55,7 +55,7 @@ public class Board {
 	   
 //initializes chessBoard to have all spots filled with null
 
-for (int i=0;i<8;i++){
+for (int i=0;i<8;i++){ //Initializing all pieces
 	chessBoard.add(new ArrayList<Piece>());
 	for (int j=0;j<8;j++){
 		chessBoard.get(i).add(j,null);
@@ -165,7 +165,7 @@ for (int i=0;i<8;i++){
 			check=isCheck(isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2));
 			System.out.println(check+","+chessBoard.get(Cx1).get(Cy1).getW()+","+this.whichKing);
 			//System.out.println("hi");
-			if (check==true&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){
+			if (check==true&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){// Checks if they are the same color
 				System.out.println("offboard");
 				move=false;
 				}
@@ -215,7 +215,7 @@ public void updateBoardFromArray(){
 	
 	}
 //this returns the integer index of x
-public int getXFromChar(char x){
+public int getXFromChar(char x){//Matching the x values
 int i=0;
 for (char letter: boardPrint.get(1).toCharArray()){
 					if (letter==x){
@@ -223,7 +223,7 @@ for (char letter: boardPrint.get(1).toCharArray()){
 		return i;
 		}
 //this returns the integer index of y
-public int getYFromChar(char y){
+public int getYFromChar(char y){//Matching the y values
 	int i=0;
 	int n=0;
 	for (String line : boardPrint){
