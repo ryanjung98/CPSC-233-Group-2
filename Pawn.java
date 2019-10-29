@@ -32,13 +32,13 @@ int n=0;
 				}
 				
 			else if (y==this.getY()-1&&x==this.getX()+1){
-				if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				
 				}	
 				}
 			else if (y==this.getY()-1&&x==this.getX()-1){
-				if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				
 				}	
@@ -52,11 +52,11 @@ int n=0;
 			}
 			else if (y==this.getY()-1&&(x==(this.getX()+1))){
 
-				if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				}}
 			else if (y==this.getY()-1&&(x==(this.getX()-1))){
-					if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+					if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 					}}
 			}
@@ -68,13 +68,13 @@ int n=0;
 				n+=1;
 				}
 			else if (y==this.getY()+1&&x==this.getX()+1){
-				if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				
 				}	
 				}
 			else if (y==this.getY()+1&&x==this.getX()-1){	
-					if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+					if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				
 				}	
@@ -87,12 +87,12 @@ int n=0;
 			}
 			else if (y==this.getY()+1 && x==(this.getX()+1)){
 //checks to see if the pawn can move diagonal
-				if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				}
 			}
 			else if (y==this.getY()+1&&x==(this.getX()-1)){
-				if (Board.chessBoard.get(x).get(y)!=null&&Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					//System.out.println("hi");
 					n+=1;}
 				}

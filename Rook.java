@@ -22,7 +22,7 @@ public boolean canMove(int x, int y){
 				//if (Board.chessBoard.get(x).get(i)!=null){
 				//	return false;
 				//	}
-				if (Board.chessBoard.get(x).get(i)==null){
+				if (Board.idiot.get(x).get(i)==null){
 					n+=1;
 				}
 				
@@ -35,7 +35,7 @@ public boolean canMove(int x, int y){
 					//if (Board.chessBoard.get(x).get(i)!=null){
 					//	return false;
 					//	}
-					if (Board.chessBoard.get(x).get(i)==null){
+					if (Board.idiot.get(x).get(i)==null){
 						n+=1;
 						}
 					
@@ -50,7 +50,7 @@ public boolean canMove(int x, int y){
 			//if (Board.chessBoard.get(i).get(y)!=null){
 			//	return false;
 			//	}
-			if (Board.chessBoard.get(i).get(y)==null){
+			if (Board.idiot.get(i).get(y)==null){
 				n+=1;
 				}
 			}
@@ -61,18 +61,18 @@ public boolean canMove(int x, int y){
 			//if (Board.chessBoard.get(i).get(y)!=null){
 			//	return false;
 			//	}
-			if (Board.chessBoard.get(i).get(y)==null){
+			if (Board.idiot.get(i).get(y)==null){
 				n+=1;
 				}
 			}
 			
 			}
 	}
-	if (Board.chessBoard.get(x).get(y)==null){
+	if (Board.idiot.get(x).get(y)==null){
 					n+=1;
 				}
-	else if (Board.chessBoard.get(x).get(y)!=null){
-		if (Board.chessBoard.get(x).get(y).getW()!=this.getW()){
+	else if (Board.idiot.get(x).get(y)!=null){
+		if (Board.idiot.get(x).get(y).getW()!=this.getW()){
 						n+=1;
 		}
 	}
