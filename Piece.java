@@ -1,0 +1,57 @@
+import java.lang.Math;
+public abstract class Piece {
+  //INSTANCE VARIABLES
+  private boolean white; //boolean for if white or black
+  private int xpos; private int ypos; //positions of piece between 1 and 8
+  private boolean danger;
+  private char piece;
+  
+  //CONSTRUCTORS
+  public Piece(char p){
+   this.piece = p;
+  }
+  public Piece(Piece p){
+   this.piece = p.piece;
+  }
+  public Piece(int x, int y, boolean w){
+	  this.xpos=x;
+	  this.ypos=y;
+	  this.white=w;
+	  }
+	public Piece(){
+		
+		}
+	  
+//getter methods
+
+public abstract boolean canMove(int i, int j);
+
+public boolean getW(){
+	return this.white;
+	}
+	public char getP(){
+		return this.piece;
+		}
+public int getX(){
+	return this.xpos;
+	}  
+	
+public int getY(){
+	return this.ypos;
+	}
+//setter methods	
+public void setW(boolean t){
+	this.white=t;
+	}
+public void setP(char p){
+	this.piece = p;
+	
+	}
+public void setX(int x){
+	this.xpos = x;
+	}
+public void setY(int y){
+	this.ypos = y;
+	}
+	
+}
