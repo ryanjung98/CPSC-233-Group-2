@@ -9,8 +9,6 @@ public class Board {
   public static int turn;
   //whichking will update in the is check method and be set to true if white king is in check and false if black king is in check 
   public boolean whichKing;
-  private boolean blackCheck;
-  private boolean whiteCheck;
  // public boolean isW
  //constructor that builds initial chess board
  public Board(){
