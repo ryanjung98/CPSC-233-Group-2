@@ -36,7 +36,7 @@ public class Board {
    line.add("   #     #     #     #     #     #     #     #     #");
    line.add("   #################################################");
    line.add("   #     #     #     #     #     #     #     #     #");
-   line.add("3  #  B  #     #     #     #     #     #     #     #");
+   line.add("3  #     #     #     #     #     #     #     #     #");
    line.add("   #     #     #     #     #     #     #     #     #");
    line.add("   #################################################");
    line.add("   #     #     #     #     #     #     #     #     #");
@@ -48,7 +48,7 @@ public class Board {
    line.add("   #     #     #     #     #     #     #     #     #");
    line.add("   #################################################");
    line.add("   #     #     #     #     #     #     #     #     #");
-   line.add("0  #  R  #  N  #  B  #  Q  #  K  #     #  N  #  R  #");
+   line.add("0  #  R  #  N  #  B  #  Q  #  K  #  B  #  N  #  R  #");
    line.add("   #     #     #     #     #     #     #     #     #");
    line.add("   #################################################");
 
@@ -81,7 +81,7 @@ for (int i=0;i<8;i++){
    chessBoard.get(2).set(0,new Bishop (2,0,false));
    chessBoard.get(2).set(7,new Bishop(2,7,true));
    chessBoard.get(5).set(0,new Bishop (5,0,false));
-   chessBoard.get(0).set(4,new Bishop(0,4,true));
+   chessBoard.get(5).set(7,new Bishop(5,7,true));
    
    
    //Queens
@@ -251,8 +251,6 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 	int n = 0;
 	//System.out.println("ARRAY BEING CHECKED:");
 	//printArray(chess);
-	System.out.println(chess.get(0).get(4).getP());
-	System.out.println(chess.get(0).get(4).canMove(4,0));
 	for (int i=0; i<chess.size();i++){
 		for (int j=0; j<chess.get(i).size();j++){
 			if (chess.get(i).get(j)!=null){
@@ -264,7 +262,6 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 							if (chess.get(k).get(l)!=null){
 								if (chess.get(i).get(j).getW()!=chess.get(k).get(l).getW()){//If the king and the piece are different colors
 									if (chess.get(k).get(l).canMove(i,j)){//If piece can move to king position
-										System.out.println("THREAT: "+chess.get(k).get(l).canMove(i,j)+","+chess.get(k).get(l).getP());
 										n+=1;
 										this.whichKing = chess.get(i).get(j).getW();
 									}
@@ -275,11 +272,9 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 		}}}
 		//The above series of loops checks if 
 		if (n>=1){
-		System.out.println("Is in check");
 			return true;
 		}
 		else{
-			System.out.println("Is not in check");
 			return false;
 		}
 	}
@@ -288,7 +283,7 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 	ArrayList <ArrayList <Piece>> dummy = new ArrayList<ArrayList<Piece>>();
 	//initializes a dummy chessboard to what it currently is 
 	for (int i=0;i<8;i++){
-	dummy.add(new ArrayList<Piece>());
+		dummy.add(new ArrayList<Piece>());
 	for (int j=0;j<8;j++){
 		dummy.get(i).add(j,null);
 		}
