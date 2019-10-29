@@ -5,10 +5,10 @@ public class Board {
   private ArrayList<String> boardPrint= new ArrayList<String>();
   public static ArrayList <ArrayList <Piece>> chessBoard = new ArrayList<ArrayList<Piece>>();
   private boolean onBoard;
-  public static int turn;
-  //whichking will update in the is check method and be set to true if white king is in check and false if black king is in check 
+  public static int turn; 
   public boolean whichKing;
- // public boolean isW
+	
+	
  //constructor that builds initial string and array chess boards 
  public Board(){
 	
