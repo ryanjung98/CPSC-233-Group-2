@@ -74,7 +74,7 @@ public boolean canMove(int x, int y){
 			}
 		
 		}
-		if (n>=0){
+		if (n>0){
 		if (Board.idiot.get(x).get(y)!=null){
 					//System.out.println("hi");
 				if (Board.idiot.get(x).get(y).getW()!=this.getW()){
