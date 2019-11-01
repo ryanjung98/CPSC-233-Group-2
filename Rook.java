@@ -85,7 +85,11 @@ public boolean canMove(int x, int y){
 	public char getP(){
 	return p;
 	}
-	
+	public void setEnPassant(boolean boo){
+	}
+	public boolean getEnPassant(){
+		return false;
+	}
 	
 	}
 	

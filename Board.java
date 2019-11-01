@@ -3,12 +3,14 @@ import java.util.*;
 import java.lang.StringBuilder;
 public class Board {
   private ArrayList<String> boardPrint= new ArrayList<String>();
-  public static ArrayList <ArrayList <Piece>> chessBoard = new ArrayList<ArrayList<Piece>>();
+  public static ArrayList <ArrayList <Piece>> chessBoard = new ArrayList<ArrayList<Piece>>();//Used to store the current arrangement of pieces
   public static ArrayList <ArrayList <Piece>> idiot; //This one will be used as a temporary array of pieces for check logic
   private boolean onBoard;
   public static int turn;
   //whichking will update in the is check method and be set to true if white king is in check and false if black king is in check 
   public boolean whichKing;
+  private boolean blackCheck;
+  private boolean whiteCheck;
  // public boolean isW
  //constructor that builds initial chess board
  public Board(){
@@ -162,9 +164,7 @@ for (int i=0;i<8;i++){
 		
 		if (move==true){
 			idiot=isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2);
-			System.out.println("Checking...");
 			check=isCheck(idiot);
-			System.out.println(check+","+chessBoard.get(Cx1).get(Cy1).getW()+","+this.whichKing);
 			if (check&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){ //If the checked King is the same color as the peice being moved
 				System.out.println("Your king would be in check, try again!");
 				move=false;
@@ -260,6 +260,7 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 							if (chess.get(k).get(l)!=null){
 								if (chess.get(i).get(j).getW()!=chess.get(k).get(l).getW()){//If the king and the piece are different colors
 									if (chess.get(k).get(l).canMove(i,j)){//If piece can move to king position
+										System.out.println("THREAT: "+chess.get(k).get(l).canMove(i,j)+","+chess.get(k).get(l).getP());
 										n+=1;
 										this.whichKing = chess.get(i).get(j).getW();
 									}
@@ -270,9 +271,11 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 		}}}
 		//The above series of loops checks if 
 		if (n>=1){
+		System.out.println("Is in check");
 			return true;
 		}
 		else{
+			System.out.println("Is not in check");
 			return false;
 		}
 	}
@@ -281,7 +284,7 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 	ArrayList <ArrayList <Piece>> dummy = new ArrayList<ArrayList<Piece>>();
 	//initializes a dummy chessboard to what it currently is 
 	for (int i=0;i<8;i++){
-		dummy.add(new ArrayList<Piece>());
+	dummy.add(new ArrayList<Piece>());
 	for (int j=0;j<8;j++){
 		dummy.get(i).add(j,null);
 		}
@@ -318,6 +321,18 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 	//Bypasses checking if it is a valid move
 	return dummy;
 }
+public void toggleEnPassant(int turny){
+	boolean wite=true;
+	if(turny%2==0)
+		wite=false;
+	
+	for (int i=0; i<chessBoard.size();i++){
+		for (int j=0; j<chessBoard.get(i).size();j++){
+			if (chessBoard.get(i).get(j)!=null){
+				if ((chessBoard.get(i).get(j).getP()=='P')&&(chessBoard.get(i).get(j).getW()==wite))
+						chessBoard.get(i).get(j).setEnPassant(false);
+//Goes through each pawn and toggles enpassant off if it is their turn
+}}}}
 
 public void printArray(ArrayList <ArrayList <Piece>> chess){
 	for (int i=0; i<8;i++){

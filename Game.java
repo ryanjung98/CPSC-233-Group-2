@@ -33,6 +33,7 @@ public static void main (String[] args){
 	if (canMove){
 	turn+=1;
 	b.printBoard();
+	b.toggleEnPassant(turn);//invokes method in Board class used to switch all enpassant of players pawns to false if it is now their turn
 	}
 	else {System.out.println("Invalid move, Try again!");}
 	}
