@@ -14,19 +14,25 @@ public Knight (int i, int j,boolean w){
 public boolean canMove(int x, int y){
 	int n=0;
 	if ((x==this.getX()-1&&(y==this.getY()+2|| y==this.getY()-2 ))||(x==this.getX()+1&&(y==this.getY()+2||y==this.getY()-2))){
-		n+=1;
+		n=1;
 		
 	}
 	else if ((y==this.getY()+1&&(x==this.getX()+2||x==this.getX()-2))||(y==this.getY()-1&&(x==this.getX()+2||x==this.getX()-2))){
-		n+=1;
-		
+		n=1;
+	}
+	if ((Board.idiot.get(x).get(y)!=null)&&(Board.idiot.get(x).get(y).getW()==this.getW()))
+		n=0;
+	if (n>=1){
+		return true;
 		}
-		if (n>=1){
-			return true;
-			}
-		else return false;
+	else return false;
 }
-	public char getP(){
+public char getP(){
 	return p;
 	}
+public void setEnPassant(boolean boo){
+}
+public boolean getEnPassant(){
+	return false;
+}
 }

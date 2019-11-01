@@ -25,6 +25,8 @@ public abstract class Piece {
 //getter methods
 
 public abstract boolean canMove(int i, int j);
+public abstract void setEnPassant(boolean boo);//had to also make useless overide methods for all the pieces
+public abstract boolean getEnPassant();//had to also make useless overide methods for all the pieces
 
 public boolean getW(){
 	return this.white;

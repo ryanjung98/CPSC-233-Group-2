@@ -13,7 +13,7 @@ public Queen (int i, int j, boolean w){
 	}
 	
 public boolean canMove(int x, int y){
-	//the first if statement checks if its moving like a rook or knight
+	//the first if statement checks if its moving like a rook or bishop
 
 	boolean dummy1Move=this.dummyRook.canMove(x,y);
 	boolean dummy2Move=this.dummyBishop.canMove(x,y);
@@ -26,25 +26,23 @@ public boolean canMove(int x, int y){
 		}
 	}
 	else if (dummy2Move==true){
-		getRookBishop();
 			n+=1;
 			}
 		
 	if (n>=1){
-		if (Board.chessBoard.get(x).get(y)!= null){
-		if (Board.chessBoard.get(x).get(y).getP()!='K'){
-		dummyRook.setX(x);
-		dummyRook.setY(y);
-		dummyBishop.setX(x);
-		dummyBishop.setY(y);
+		if (Board.idiot.get(x).get(y)!= null){
+			if (Board.idiot.get(x).get(y).getP()!='K'){
+				dummyRook.setX(x);
+				dummyRook.setY(y);
+				dummyBishop.setX(x);
+				dummyBishop.setY(y);
 		}}
-		else if (Board.chessBoard.get(x).get(y)==null){
-		dummyRook.setX(x);
-		dummyRook.setY(y);
-		dummyBishop.setX(x);
-		dummyBishop.setY(y);
+		else if (Board.idiot.get(x).get(y)==null){
+			dummyRook.setX(x);
+			dummyRook.setY(y);
+			dummyBishop.setX(x);
+			dummyBishop.setY(y);
 			}
-		getRookBishop();
 		return true;
 		}
 	else return false;
@@ -53,9 +51,9 @@ public boolean canMove(int x, int y){
 	return p;
 	}
 	
-	public void getRookBishop(){
-		System.out.println("Queen Test");
-		System.out.println(dummyRook.getX()+" Rook "+dummyRook.getY());
-		System.out.println(dummyBishop.getX()+" Bishop "+ dummyBishop.getY());
-		}
+	public void setEnPassant(boolean boo){
+	}
+	public boolean getEnPassant(){
+		return false;
+	}
 }
