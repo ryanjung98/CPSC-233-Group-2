@@ -12,6 +12,12 @@ public Queen (int i, int j, boolean w){
 	this.setW(w);
 	}
 	
+public Queen (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+	dummyRook = new Rook(i,j,w,h);
+	dummyBishop = new Bishop(i,j,w,h);
+}
+	
 public boolean canMove(int x, int y){
 	//the first if statement checks if its moving like a rook or bishop
 

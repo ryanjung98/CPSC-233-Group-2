@@ -10,6 +10,9 @@ public Rook (int i, int j, boolean w){
 	this.setY(j);
 	this.setW(w);
 	}
+public Rook (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
 
 public boolean canMove(int x, int y){
 	int n=0;

@@ -71,7 +71,7 @@ for (int i=0;i<8;i++){
    chessBoard.get(7).set(7,new Rook (7,7,true));
    
    //knights
-     chessBoard.get(1).set(0,new Knight (1,0,false));
+   chessBoard.get(1).set(0,new Knight (1,0,false));
    chessBoard.get(1).set(7,new Knight(1,7,true));
    chessBoard.get(6).set(0,new Knight (6,0,false));
    chessBoard.get(6).set(7,new Knight(6,7,true));
@@ -89,11 +89,10 @@ for (int i=0;i<8;i++){
    chessBoard.get(3).set(7,new Queen(3,7,true));
    
    //Kings
-      chessBoard.get(4).set(0,new King(4,0,false));
-    chessBoard.get(4).set(7,new King(4,7,true));
+   chessBoard.get(4).set(0,new King(4,0,false));
+   chessBoard.get(4).set(7,new King(4,7,true));
    
    //pawns
-   
    for(int i=0; i<8;i++){
 	   chessBoard.get(i).set(1,new Pawn(i,1,false));
 	   chessBoard.get(i).set(6,new Pawn(i,6,true));
@@ -103,6 +102,7 @@ for (int i=0;i<8;i++){
 	
    }
    // loops through arraylist and prints board
+   
    public void printBoard (){
 	  // System.out.println("\033[H\033[2J");
 	   for (String s : boardPrint){
@@ -110,6 +110,7 @@ for (int i=0;i<8;i++){
 	   }
 	   
 	//parameter is string which is in the format "A2,B2"
+	
 	public boolean scanBoard (String s){
 		this.turn=Game.turn;
 		boolean move;
@@ -159,8 +160,9 @@ for (int i=0;i<8;i++){
 			//tester+=1;
 			}
 			
-		else
+		else{
 			move=getPieceMove(Cx1,Cy1,Cx2,Cy2);
+			}
 		
 		if (move==true){
 			idiot=isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2);
@@ -170,20 +172,108 @@ for (int i=0;i<8;i++){
 				move=false;
 			}
 			else if (check==false||(check==true&&this.whichKing!=chessBoard.get(Cx1).get(Cy1).getW())){
+			chessBoard.get(Cx1).get(Cy1).setHasMoved(true);
 			chessBoard.get(Cx1).get(Cy1).setX(Cx2);
 			chessBoard.get(Cx1).get(Cy1).setY(Cy2);
 			chessBoard.get(Cx2).set(Cy2,chessBoard.get(Cx1).get(Cy1));
-			chessBoard.get(Cx1).set(Cy1,null);}
-			this.updateBoardFromArray();
+			chessBoard.get(Cx1).set(Cy1,null);
+			}
+			
 			}
 		//If the move is valid, performs move
+		
+		//The below is for castling bypasses normal king movement rules
+		else if((chessBoard.get(Cx1).get(Cy1).getP()=='K' && chessBoard.get(Cx1).get(Cy1).getHasMoved()==false && isCheck(chessBoard)==false)){//if the selected piece is a king that hasnt moved, and is not in check
+			move=false;
+				if(chessBoard.get(Cx1).get(Cy1).getW()==true){//if white king
+					if(Cx2==2 && Cy2==7 && chessBoard.get(0).get(7)!=null){//if left side and a piece is where the castle should be
+						if(chessBoard.get(0).get(7).getHasMoved()==false){
+							for(int ah=1;ah<=3;ah++){
+								if(chessBoard.get(ah).get(7)!=null || isCheck(isGoingToBeInCheck(Cx1,Cy1,ah,Cy2))){//if a space in between is empty or attacked, breaks the loop and sets move to false
+									move=false;
+									break;
+								}
+								else
+									move=true;
+								if(ah==3 && move){
+									chessBoard.get(Cx1).get(Cy1).setHasMoved(true); chessBoard.get(0).get(7).setHasMoved(true);
+									chessBoard.get(Cx1).get(Cy1).setX(Cx2); chessBoard.get(0).get(7).setX(3);
+									chessBoard.get(Cx2).set(Cy2,chessBoard.get(Cx1).get(Cy1)); chessBoard.get(3).set(7,chessBoard.get(0).get(7));
+									chessBoard.get(Cx1).set(Cy1,null); chessBoard.get(0).set(7,null);
+								}
+							}
+						}
+					}
+					else if(Cx2==6 && Cy2==7 && chessBoard.get(0).get(7)!=null){//if right side and a piece is where the castle should be
+						if(chessBoard.get(7).get(7).getHasMoved()==false){
+							for(int ah=5;ah<=6;ah++){
+								if(chessBoard.get(ah).get(7)!=null || isCheck(isGoingToBeInCheck(Cx1,Cy1,ah,Cy2))){//if a space in between is empty or attacked, breaks the loop and sets move to false
+									move=false;
+									System.out.println("One of the spaces is attacked"+ah);
+									break;
+								}
+								else
+									move=true;
+								if(ah==6 && move){
+									chessBoard.get(Cx1).get(Cy1).setHasMoved(true);chessBoard.get(7).get(7).setHasMoved(true);
+									chessBoard.get(Cx1).get(Cy1).setX(Cx2); chessBoard.get(7).get(7).setX(5);
+									chessBoard.get(Cx2).set(Cy2,chessBoard.get(Cx1).get(Cy1)); chessBoard.get(5).set(7,chessBoard.get(7).get(7));
+									chessBoard.get(Cx1).set(Cy1,null); chessBoard.get(7).set(7,null);
+								}
+							}
+						}
+					}
+				}
+				
+				else{										   //if black king
+					if(Cx2==2 && Cy2==0 && chessBoard.get(0).get(0)!=null){//if left side and a piece is where the castle should be
+						if(chessBoard.get(0).get(0).getHasMoved()==false){
+							for(int ah=1;ah<=3;ah++){
+								if(chessBoard.get(ah).get(0)!=null || isCheck(isGoingToBeInCheck(Cx1,Cy1,ah,Cy2))){//if a space in between is empty or attacked, breaks the loop and sets move to false
+									move=false;
+									break;
+								}
+								else
+									move=true;
+								if(ah==3 && move){
+									chessBoard.get(Cx1).get(Cy1).setHasMoved(true); chessBoard.get(0).get(0).setHasMoved(true);
+									chessBoard.get(Cx1).get(Cy1).setX(Cx2); chessBoard.get(0).get(0).setX(3);
+									chessBoard.get(Cx2).set(Cy2,chessBoard.get(Cx1).get(Cy1)); chessBoard.get(3).set(0,chessBoard.get(0).get(0));
+									chessBoard.get(Cx1).set(Cy1,null); chessBoard.get(0).set(0,null);
+								}
+							}
+						}
+					}
+					else if(Cx2==6 && Cy2==0 && chessBoard.get(0).get(0)!=null){//if right side and a piece is where the castle should be
+						if(chessBoard.get(7).get(0).getHasMoved()==false){
+							for(int ah=5;ah<=6;ah++){
+								if(chessBoard.get(ah).get(0)!=null || isCheck(isGoingToBeInCheck(Cx1,Cy1,ah,Cy2))){//if a space in between is empty or attacked, breaks the loop and sets move to false
+									move=false;
+									break;
+								}
+								else
+									move=true;
+								if(ah==6 && move){
+									chessBoard.get(Cx1).get(Cy1).setHasMoved(true); chessBoard.get(7).get(0).setHasMoved(true);
+									chessBoard.get(Cx1).get(Cy1).setX(Cx2); chessBoard.get(7).get(0).setX(5);
+									chessBoard.get(Cx2).set(Cy2,chessBoard.get(Cx1).get(Cy1)); chessBoard.get(5).set(0,chessBoard.get(7).get(0));
+									chessBoard.get(Cx1).set(Cy1,null); chessBoard.get(7).set(0,null);
+								}
+							}
+						}
+					}
+					
+				}
+			}	
+		//End castling logic
+		this.updateBoardFromArray();
 		idiot=chessBoard;
 		return move;
 	}
 		
 //this method returns true if piece p in x1,y1 can move to x2,y2	
 	
-public boolean getPieceMove(int x1, int y1, int x2, int y2){
+public boolean getPieceMove(int x1, int y1, int x2, int y2){//I think this method is redundant
 	boolean move;
 	
 		move = chessBoard.get(x1).get(y1).canMove(x2,y2);
@@ -192,6 +282,7 @@ public boolean getPieceMove(int x1, int y1, int x2, int y2){
 		return move;
 		}
 // this will update the text based board printed to the console from the piece array 	
+
 public void updateBoardFromArray(){
 	char piece;
 	String line;
@@ -215,6 +306,7 @@ public void updateBoardFromArray(){
 	
 	}
 //this returns the integer index of x
+
 public int getXFromChar(char x){
 int i=0;
 for (char letter: boardPrint.get(1).toCharArray()){
@@ -235,15 +327,18 @@ public int getYFromChar(char y){
 	return n;
 	}
 //this returns the character of the piece n the console board
+
 public char getPiece(int x, int y){
 	char piece = boardPrint.get(y).charAt(x);
 	return piece;		
 }
 //getter
+
 public boolean getOnB(){
 	return this.onBoard;
 	}
 //this only tells if after a move happens one team is in check, this is only used in the game class, there is another method.
+
 public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 	//System.out.println(chess);
 	int n = 0;
@@ -253,14 +348,14 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 		for (int j=0; j<chess.get(i).size();j++){
 			if (chess.get(i).get(j)!=null){
 				if (chess.get(i).get(j).getP()=='K'){
-					//System.out.println("KingTest   "+chess.get(i).get(j).getW());
+					
 					//i, and j are the location of a king, so now rescan board to check if any of the players can move to i, j
 					for (int k=0;k<chess.size();k++){
 						for (int l=0; l<chess.get(k).size();l++){
 							if (chess.get(k).get(l)!=null){
 								if (chess.get(i).get(j).getW()!=chess.get(k).get(l).getW()){//If the king and the piece are different colors
 									if (chess.get(k).get(l).canMove(i,j)){//If piece can move to king position
-										System.out.println("THREAT: "+chess.get(k).get(l).canMove(i,j)+","+chess.get(k).get(l).getP());
+										System.out.println("THREAT: "+chess.get(k).get(l).canMove(i,j)+","+chess.get(k).get(l).getP()+","+k+","+l);
 										n+=1;
 										this.whichKing = chess.get(i).get(j).getW();
 									}
@@ -293,22 +388,22 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 		for (int j=0; j<chessBoard.get(i).size();j++){
 			if (chessBoard.get(i).get(j)!=null){
 			if (chessBoard.get(i).get(j).getP()=='P'){
-				dummy.get(i).set(j,new Pawn(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				dummy.get(i).set(j,new Pawn(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW(),chessBoard.get(i).get(j).getHasMoved()));
 				}
 			else if (chessBoard.get(i).get(j).getP()=='R'){
-				dummy.get(i).set(j,new Rook(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				dummy.get(i).set(j,new Rook(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW(),chessBoard.get(i).get(j).getHasMoved()));
 				}
 			else if (chessBoard.get(i).get(j).getP()=='N'){
-				dummy.get(i).set(j,new Knight(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				dummy.get(i).set(j,new Knight(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW(),chessBoard.get(i).get(j).getHasMoved()));
 				}
 			else if (chessBoard.get(i).get(j).getP()=='B'){
-				dummy.get(i).set(j,new Bishop(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				dummy.get(i).set(j,new Bishop(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW(),chessBoard.get(i).get(j).getHasMoved()));
 				}
 			else if (chessBoard.get(i).get(j).getP()=='Q'){ 
-				dummy.get(i).set(j,new Queen(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				dummy.get(i).set(j,new Queen(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW(),chessBoard.get(i).get(j).getHasMoved()));
 				}
 			else if (chessBoard.get(i).get(j).getP()=='K'){
-				dummy.get(i).set(j,new King(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW()));
+				dummy.get(i).set(j,new King(chessBoard.get(i).get(j).getX(),chessBoard.get(i).get(j).getY(),chessBoard.get(i).get(j).getW(),chessBoard.get(i).get(j).getHasMoved()));
 				}}
 		
 	}}//Copying the array
