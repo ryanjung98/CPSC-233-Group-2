@@ -2,18 +2,20 @@ public class Pawn extends Piece {
 
 private char p = 'P';
 private boolean move;
-private boolean hasMoved;
+
 private boolean isW;
 private boolean white;
 private boolean enpassant; //decides if the pawn can be taken by en passant
-//private int xpos;
-//private int ypos;
+
 public Pawn (int i, int j, boolean w){
 	this.setX(i);
 	this.setY(j);
 	this.setW(w);
-	//isW=Game.isW;
 	}
+public Pawn (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
+	
 //it is important for this class to knowif we are white or black because pawns cant move backwards!	
 public void setEnPassant(boolean boo){
 	this.enpassant=boo;
@@ -23,15 +25,9 @@ public boolean getEnPassant(){
 }
 public boolean canMove(int x, int y){
 isW=Game.isW;
-
-	if ((this.getY()==1&&this.getW()!=true)||(this.getY()==6&&this.getW())){
-		this.hasMoved =false;
-		}
-	else this.hasMoved=true;
-	
 int n=0;
 //for white moves
-		if ((this.getW()==true)&&this.hasMoved==false){
+		if ((this.getW()==true)&&this.getHasMoved()==false){
 			//
 			if (y==this.getY()-1 && x==this.getX() && Board.idiot.get(x).get(y)==null){
 				n+=1;
@@ -46,7 +42,7 @@ int n=0;
 				}	
 				else if (Board.chessBoard.get(x).get(y+1)!=null && Board.chessBoard.get(x).get(y+1).getW()!=this.getW() && Board.chessBoard.get(x).get(y+1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y+1).getEnPassant()){
-						Board.chessBoard.get(x).set(y+1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -57,7 +53,7 @@ int n=0;
 				}
 				else if (Board.chessBoard.get(x).get(y+1)!=null && Board.chessBoard.get(x).get(y+1).getW()!=this.getW() && Board.chessBoard.get(x).get(y+1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y+1).getEnPassant()){
-						Board.chessBoard.get(x).set(y+1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -66,7 +62,7 @@ int n=0;
 				
 				
 				}
-		else if (this.getW()==true && this.hasMoved==true){
+		else if (this.getW()==true && this.getHasMoved()==true){
 			if (y==this.getY()-1 && x==this.getX() && Board.idiot.get(x).get(y)==null){
 				n+=1;
 			}
@@ -77,7 +73,7 @@ int n=0;
 				}
 				else if (Board.chessBoard.get(x).get(y+1)!=null && Board.chessBoard.get(x).get(y+1).getW()!=this.getW() && Board.chessBoard.get(x).get(y+1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y+1).getEnPassant()){
-						Board.chessBoard.get(x).set(y+1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -88,7 +84,7 @@ int n=0;
 					}
 				else if (Board.chessBoard.get(x).get(y+1)!=null && Board.chessBoard.get(x).get(y+1).getW()!=this.getW() && Board.chessBoard.get(x).get(y+1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y+1).getEnPassant()){
-						Board.chessBoard.get(x).set(y+1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -97,7 +93,7 @@ int n=0;
 	
 		
 		//for black moves
-		if ((this.getW()==false)&&this.hasMoved==false){
+		if ((this.getW()==false)&&this.getHasMoved()==false){
 			if ((y==this.getY()+1 && x==this.getX() && Board.idiot.get(x).get(y)==null))
 				n+=1;
 			else if(y==this.getY()+2 && x==this.getX() && Board.idiot.get(x).get(y)==null){
@@ -110,7 +106,7 @@ int n=0;
 				}
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-						Board.chessBoard.get(x).set(y-1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -121,7 +117,7 @@ int n=0;
 					n+=1;
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-						Board.chessBoard.get(x).set(y-1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -130,7 +126,7 @@ int n=0;
 			}}
 			
 			
-		else if (this.getW() == false && this.hasMoved==true){
+		else if (this.getW() == false && this.getHasMoved()==true){
 			if (y==this.getY()+1 && x==this.getX() && Board.idiot.get(x).get(y)==null){
 				n+=1;
 			}
@@ -141,7 +137,7 @@ int n=0;
 				}
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-						Board.chessBoard.get(x).set(y-1,null);
+
 						n+=1;
 					}
 					//for en passant
@@ -153,7 +149,7 @@ int n=0;
 					n+=1;}
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-						Board.chessBoard.get(x).set(y-1,null);
+
 						n+=1;
 					}
 					//for en passant

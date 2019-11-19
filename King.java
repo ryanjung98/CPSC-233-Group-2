@@ -8,6 +8,9 @@ public King (int i, int j,boolean w){
 	this.setY(j);
 	this.setW(w);
 	}
+public King (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
 	
 public boolean canMove(int x, int y){
 	//check logic is done in board class, and this canmove isnt accessed until we know board is not in check.

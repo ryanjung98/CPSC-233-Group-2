@@ -11,6 +11,7 @@ public static void main (String[] args){
 	turn =1;
 	Board b = new Board();
 	b.printBoard();
+	
 	while (game==true){
 		if (turn % 2 ==0)
 		{player = "P2";}
