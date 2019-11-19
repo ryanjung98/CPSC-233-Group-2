@@ -5,6 +5,7 @@ public abstract class Piece {
   private int xpos; private int ypos; //positions of piece between 1 and 8
   private boolean danger;
   private char piece;
+  private boolean hasMoved;
   
   //CONSTRUCTORS
   public Piece(char p){
@@ -17,7 +18,15 @@ public abstract class Piece {
 	  this.xpos=x;
 	  this.ypos=y;
 	  this.white=w;
+	  this.hasMoved=false;
 	  }
+	  public Piece(int x, int y, boolean w, boolean h){
+	  this.xpos=x;
+	  this.ypos=y;
+	  this.white=w;
+	  this.hasMoved=h;
+	  }
+	  
 	public Piece(){
 		
 		}
@@ -41,6 +50,9 @@ public int getX(){
 public int getY(){
 	return this.ypos;
 	}
+public boolean getHasMoved(){
+	return this.hasMoved;
+}
 //setter methods	
 public void setW(boolean t){
 	this.white=t;
@@ -55,5 +67,7 @@ public void setX(int x){
 public void setY(int y){
 	this.ypos = y;
 	}
-	
+public void setHasMoved(boolean hasMoved){
+	this.hasMoved=hasMoved;
+}
 }

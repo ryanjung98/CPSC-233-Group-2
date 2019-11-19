@@ -85,6 +85,7 @@ public boolean canMove(int x, int y){
 			n+=1;
 			}}
 		//System.out.println(n);
+	if (Math.abs(this.getX()-x)==Math.abs(this.getY()-y)){
 	if (n==Math.abs(this.getX()-x)){return true;}
 	else return false;
 	}

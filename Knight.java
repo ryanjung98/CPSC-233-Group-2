@@ -1,7 +1,7 @@
 public class Knight extends Piece {
 
 private char p = 'N';
-private boolean move;
+
 private boolean white;
 
 
@@ -10,6 +10,9 @@ public Knight (int i, int j,boolean w){
 	this.setY(j);
 	this.setW(w);
 	}
+public Knight (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
 	
 public boolean canMove(int x, int y){
 	int n=0;
