@@ -24,7 +24,7 @@ public boolean getEnPassant(){
 	return this.enpassant;
 }
 public boolean canMove(int x, int y){
-isW=Board.isW;
+isW=GUI2.isW;
 int n=0;
 //for white moves
 		if ((this.getW()==true)&&this.getHasMoved()==false){
