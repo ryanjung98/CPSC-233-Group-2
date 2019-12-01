@@ -24,7 +24,7 @@ public boolean getEnPassant(){
 	return this.enpassant;
 }
 public boolean canMove(int x, int y){
-isW=Game.isW;
+isW=Board.isW;
 int n=0;
 //for white moves
 		if ((this.getW()==true)&&this.getHasMoved()==false){
