@@ -11,6 +11,10 @@ public Knight (int i, int j,boolean w){
 	this.setW(w);
 	}
 	
+	public Knight (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
+	
 public boolean canMove(int x, int y){
 	int n=0;
 	if ((x==this.getX()-1&&(y==this.getY()+2|| y==this.getY()-2 ))||(x==this.getX()+1&&(y==this.getY()+2||y==this.getY()-2))){

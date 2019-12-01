@@ -38,6 +38,11 @@ public static void main (String[] args){
 	}
 	else {System.out.println("Invalid move, Try again!");}
 	}
+	if(b.isMate){
+		System.out.println("Checkmate");
+		game=false;
+	}
+
 	}
 	
    }

@@ -9,6 +9,9 @@ public Bishop (int i, int j, boolean w){
 	this.setY(j);
 	this.setW(w);
 	}
+public Bishop (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
 public boolean canMove(int x, int y){
 	int extra=1;
 	int n=0;
@@ -74,7 +77,7 @@ public boolean canMove(int x, int y){
 			}
 		
 		}
-		if (n>0){
+		if (n>=0){
 		if (Board.idiot.get(x).get(y)!=null){
 					//System.out.println("hi");
 				if (Board.idiot.get(x).get(y).getW()!=this.getW()){
@@ -86,15 +89,17 @@ public boolean canMove(int x, int y){
 			}}
 		//System.out.println(n);
 	if (Math.abs(this.getX()-x)==Math.abs(this.getY()-y)){
-	if (n==Math.abs(this.getX()-x)){return true;}
+		if (n==Math.abs(this.getX()-x)){return true;}
+		else return false;
+		}
 	else return false;
 	}
 		public char getP(){
 	return p;
 	}
-public void setEnPassant(boolean boo){
-}
-public boolean getEnPassant(){
-	return false;
-}
+	public void setEnPassant(boolean boo){
+	}
+	public boolean getEnPassant(){
+		return false;
+	}
 }

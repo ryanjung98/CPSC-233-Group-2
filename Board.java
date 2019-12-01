@@ -11,6 +11,7 @@ public class Board {
   public boolean whichKing;
   private boolean blackCheck;
   private boolean whiteCheck;
+  public boolean isMate;
  // public boolean isW
  //constructor that builds initial chess board
  public Board(){
@@ -113,7 +114,12 @@ for (int i=0;i<8;i++){
 	
 	public boolean scanBoard (String s){
 		this.turn=Game.turn;
-		boolean move;
+		boolean wTurn;
+		if (turn % 2 ==0)
+			wTurn=false;
+		else
+			wTurn=true;
+		boolean move=false;
 		boolean check;
 		int tester=0;
 		int i = 0;
@@ -160,7 +166,7 @@ for (int i=0;i<8;i++){
 			//tester+=1;
 			}
 			
-		else{
+		else if (wTurn==chessBoard.get(Cx1).get(Cy1).getW()){
 			move=getPieceMove(Cx1,Cy1,Cx2,Cy2);
 			}
 		
@@ -416,6 +422,7 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 	//Bypasses checking if it is a valid move
 	return dummy;
 }
+
 public void toggleEnPassant(int turny){
 	boolean wite=true;
 	if(turny%2==0)
@@ -429,6 +436,37 @@ public void toggleEnPassant(int turny){
 //Goes through each pawn and toggles enpassant off if it is their turn
 }}}}
 
+public boolean isCMate(){
+	int n=0;
+		for(int i=0; i<chessBoard.size();i++){
+			for (int j=0; j<chessBoard.get(i).size();j++){
+				if (chessBoard.get(i).get(j)!=null){
+				if (chessBoard.get(i).get(j).getW()== this.whichKing){
+					for (int k=0; k<chessBoard.size();k++){
+						for (int l=0; l<chessBoard.get(k).size();l++){
+							if (chessBoard.get(i).get(j).canMove(k,l)){
+							if (isCheck(isGoingToBeInCheck(i,j,k,l))==false){
+								n+=1;
+							}
+							}
+							}
+						}
+				
+			}
+		
+		}
+	
+	}
+	
+}
+if (n>0){
+	return false;
+	}
+else {
+	isMate=true;
+	return true;}
+
+}
 public void printArray(ArrayList <ArrayList <Piece>> chess){
 	for (int i=0; i<8;i++){
 		for (int j=0;j<8;j++){
