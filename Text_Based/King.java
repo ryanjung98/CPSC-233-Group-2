@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Game {
+public class King{
 	
 //INSTANCE VARIABLES 
 public static int turn;
