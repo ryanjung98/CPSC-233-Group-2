@@ -1,51 +1,48 @@
-import java.util.Scanner;
-public class King{
-	
-//INSTANCE VARIABLES 
-public static int turn;
-public static boolean isW;
-public static void main (String[] args){
-	boolean game = true;
-	boolean canMove;
-	String player = "";
-	turn =1;
-	Board b = new Board();
-	b.printBoard();
-	
-	while (game==true){
-		if (turn % 2 ==0)
-		{player = "P2";}
-		else 
-		{player = "P1";}
-		
-		if (player == "P1"){isW=true;}
-		else {isW=false;}
-	canMove=false;
-	while(canMove==false){
-	System.out.println(player + " please enter your move: ");
-	Scanner keyboard=new Scanner(System.in);
-	String move=keyboard.nextLine();
-	canMove=b.scanBoard(move);
-	
-	// if (b.isCheck(Board.chessBoard)){
-		// System.out.println("Youre in Check, Try again!");
-		// System.out.println("Youre in Check!");
-		// }
-	if (canMove){
-	turn+=1;
-	b.printBoard();
-	b.toggleEnPassant(turn);//invokes method in Board class used to switch all enpassant of players pawns to false if it is now their turn
-	}
-	else {System.out.println("Invalid move, Try again!");}
-	}
-	if(b.isMate){
-		System.out.println("Checkmate");
-		game=false;
-	}
+public class King extends Piece {
 
-	}
-	
-   }
-   
+private char p = 'K';
+private boolean white;
 
+public King (int i, int j,boolean w){
+	this.setX(i);
+	this.setY(j);
+	this.setW(w);
+	}
+public King (int i, int j,boolean w,boolean h){
+	super(i,j,w,h);
+}
+	
+public boolean canMove(int x, int y){
+	//check logic is done in board class, and this canmove isnt accessed until we know board is not in check.
+	int Cx=this.getX();
+	int Cy=this.getY();
+	int n = 0;
+	if (x==Cx){
+		if (y==Cy+1||y==Cy-1){
+			n+=1;
+			}
+		}
+	else if (x==Cx+1){
+		if (y==Cy|| y==Cy+1||y==Cy-1){
+			n+=1;
+			}
+		}
+	else if (x==Cx-1){
+		if (y==Cy||y==Cy+1||y==Cy-1){
+			n+=1;
+			}
+		}
+	if (n>=1){
+		return true;
+		}
+	else return false;
+	}
+public char getP(){
+	return p;
+	}
+public void setEnPassant(boolean boo){
+}
+public boolean getEnPassant(){
+	return false;
+}
 }
