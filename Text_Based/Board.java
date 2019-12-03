@@ -14,6 +14,7 @@ public class Board {
   public boolean isMate;
  // public boolean isW
  //constructor that builds initial chess board
+public Board(int n){}
  public Board(){
 	
 	 ArrayList<String> line= new ArrayList<String>();
