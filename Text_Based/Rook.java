@@ -34,7 +34,7 @@ public boolean canMove(int x, int y){
 		}
 		
 		else if (y<this.getY()){
-				for (int i=this.getY()-1; i<y;i--){
+				for (int i=this.getY()-1; i>y;i--){
 					//if (Board.chessBoard.get(x).get(i)!=null){
 					//	return false;
 					//	}
@@ -79,6 +79,7 @@ public boolean canMove(int x, int y){
 						n+=1;
 		}
 	}
+	System.out.println(k);
 	//else {return false;}
 	if (n==k){
 		return true;
