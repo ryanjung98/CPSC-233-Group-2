@@ -7,9 +7,10 @@ private boolean white;
 public Queen (int i, int j, boolean w){
 	this.setX(i);
 	this.setY(j);
+	this.setW(w);
 	dummyRook = new Rook(i,j,w);
 	dummyBishop = new Bishop(i,j,w);
-	this.setW(w);
+	
 	}
 	
 public Queen (int i, int j,boolean w, boolean h){
@@ -23,7 +24,7 @@ public boolean canMove(int x, int y){
 
 	boolean dummy1Move=this.dummyRook.canMove(x,y);
 	boolean dummy2Move=this.dummyBishop.canMove(x,y);
-	//System.out.println(dummyRook.getX()+","+dummyRook.getY());
+	System.out.println(dummyRook.getX()+","+dummyRook.getY());
 	//System.out.println(dummyBishop.getX()+","+dummyBishop.getY());
 	int n =0;
 	if (x==this.getX()||y==this.getY()){
