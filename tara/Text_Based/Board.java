@@ -179,6 +179,7 @@ for (int i=0;i<8;i++){
 			idiot=isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2);
 			//System.out.println("test");
 			check=isCheck(idiot);
+			System.out.println(check);
 			if (check&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){ //If the checked King is the same color as the peice being moved
 				System.out.println("Your king would be in check, try again!");
 				move=false;
@@ -354,7 +355,7 @@ public boolean getOnB(){
 
 public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 	//System.out.println(chess);
-	int n = 0;
+	int n = 0; idiot=chess;
 	//System.out.println("ARRAY BEING CHECKED:");
 	//printArray(chess);
 	//System.out.println(chess.get(1).size());
@@ -383,10 +384,12 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 		//The above series of loops checks if 
 		if (n>=1){
 	//	System.out.println("Is in check");
+			idiot=chessBoard;
 			return true;
 		}
 		else{
 		//	System.out.println("Is not in check");
+			idiot=chessBoard;
 			return false;
 		}
 	}
