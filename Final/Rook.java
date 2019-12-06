@@ -1,5 +1,5 @@
 import java.lang.Math;
-public class Rook extends Piece {
+public class Rook extends Piece {// Contains the logic used for Rooks
 
 private char p = 'R';
 private boolean move;
@@ -7,9 +7,7 @@ private boolean white;
 private int value=5;
 
 public Rook (int i, int j, boolean w){
-	this.setX(i);
-	this.setY(j);
-	this.setW(w);
+	super(i,j,w);
 	}
 public Rook (int i, int j,boolean w,boolean h){
 	super(i,j,w,h);
@@ -27,9 +25,6 @@ public boolean canMove(int x, int y){
 		k=Math.abs(this.getY()-y);
 		if (y>this.getY()){
 			for (int i=this.getY()+1; i<y;i++){
-				//if (Board.chessBoard.get(x).get(i)!=null){
-				//	return false;
-				//	}
 				if (Board.idiot.get(x).get(i)==null){
 					n+=1;
 				}
@@ -40,9 +35,6 @@ public boolean canMove(int x, int y){
 		
 		else if (y<this.getY()){
 				for (int i=this.getY()-1; i>y;i--){
-					//if (Board.chessBoard.get(x).get(i)!=null){
-					//	return false;
-					//	}
 					if (Board.idiot.get(x).get(i)==null){
 						n+=1;
 						}
@@ -56,9 +48,6 @@ public boolean canMove(int x, int y){
 		k=Math.abs(this.getX()-x);
 		if (x>this.getX()){
 		for (int i=this.getX()+1;i<x;i++){
-			//if (Board.chessBoard.get(i).get(y)!=null){
-			//	return false;
-			//	}
 			if (Board.idiot.get(i).get(y)==null){
 				n+=1;
 				}
@@ -67,9 +56,6 @@ public boolean canMove(int x, int y){
 		}
 		else if (x<this.getX()){
 			for (int i=this.getX()-1;i>x;i--){
-			//if (Board.chessBoard.get(i).get(y)!=null){
-			//	return false;
-			//	}
 			if (Board.idiot.get(i).get(y)==null){
 				n+=1;
 				}
@@ -77,7 +63,6 @@ public boolean canMove(int x, int y){
 			
 			}
 	}
-	//if (l>0){
 	if (Board.idiot.get(x).get(y)==null){
 		if (l>0){
 					n+=1;
@@ -87,17 +72,19 @@ public boolean canMove(int x, int y){
 						n+=1;
 		}
 	}
-	//else {return false;}
 	if (n==k){
 		return true;
 		}
 	else return false;
 	}
+
 	public char getP(){
 	return p;
 	}
+
 	public void setEnPassant(boolean boo){
 	}
+	
 	public boolean getEnPassant(){
 		return false;
 	}

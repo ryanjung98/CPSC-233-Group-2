@@ -22,14 +22,10 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
     int x2;
     int y1;
     int y2;
-    //char Cx1;
-    //char Cx2;
     
     boolean canMove;
     Board b= new Board();
     String input=" ";
-   // boolean isW=true;
-	//int turn=b.turn;
     String currentDirectory = System.getProperty("user.dir");
     
     //Constructor
@@ -72,7 +68,6 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
         }
         //Add the black pieces to the board
         
-        //java.net.URL imgURL = getClass().getClassLoader().getResource(BR);
      
         JLabel piece = new JLabel( new ImageIcon(currentDirectory+"/BR.gif") );
         JPanel panel = (JPanel)chess.getComponent(0);
@@ -182,14 +177,12 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
         x=e.getX();
         y=e.getY();
  
-        //sx=source x
  
         sx=(e.getX())/75;   
         sy=(e.getY())/75;
         
         x1=sx;
         y1=sy;
-		//System.out.println(e.getX()+","+e.getY());
  
         if (c instanceof JPanel) 
         	return;
@@ -214,8 +207,7 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
   
     	public void mouseReleased(MouseEvent e) {
     		if(chessPiece == null) return;
-  
-    		//dx= destination x     
+     
  
     		dx=(e.getX())/75;
  
@@ -225,22 +217,13 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
     		x2=dx;
     		y2=dy;
     		
-    	//System.out.println(e.getX()+","+e.getY());
-    	//System.out.println(75*dx+","+75*dy);
-    	//System.out.println(e.getX()/75+","+e.getY()/75);
-    	//System.out.println(x1+","+y1+","+x2+","+y2);
 		input = this.toString(x1,y1,x2,y2);
-		//System.out.println(x1+","+y1+","+x2+","+y2);
 		canMove=b.scanBoard(input);
-			//System.out.println(canMove);
-    		//Here d main logic comes
  
     		if(canMove == true)
     		{
-				//System.out.println(x1+","+y1);
     			chessPiece.setVisible(false);
     			Component c =  chess.findComponentAt(e.getX(), e.getY());
-				//turn+=1;
     			if (c instanceof JLabel){
     				Container parent = c.getParent();
     				parent.remove(0);
@@ -255,7 +238,6 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
 
     		}
     		else {
-				//chessPiece.setLocation(x1,y1);
     			chessPiece.setLocation(x+xAdjustment, y+yAdjustment);
     			}
 	
@@ -282,7 +264,6 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
         frame.setResizable(false);
         frame.setLocationRelativeTo( null );
         frame.setVisible(true);
-       // Game game = new Game();
      }
      
      public String toString(int i, int j, int k , int l){
@@ -304,7 +285,6 @@ public class GUI2 extends JFrame implements MouseListener, MouseMotionListener {
 							else if (k==5){x2='F';}
 							else if (k==6){x2='G';}
 							else if (k==7){x2='H';}
-	//System.out.println( x1+Integer.toString(j)+','+x2+Integer.toString(l));
 	return x1+Integer.toString(7-j)+','+x2+Integer.toString(7-l);
 	}
 	
@@ -348,7 +328,6 @@ public void movement(String s){
 		Component c =  chess.findComponentAt(i*75,j*75);
 		Component c2 = chess.findComponentAt(k*75,l*75);
 		chessPiece1=(JLabel)c;
-		//chessPiece1.setVisible(false);
 		Container parent = c.getParent();
     	parent.remove(0);
     	if (c2 instanceof JLabel){
@@ -356,13 +335,11 @@ public void movement(String s){
 			Container parent2 = c2.getParent();
 			parent2.remove(0);
 			parent2.add(chessPiece1);
-			//chessPiece1.setSize(chessPiece1.getWidth(), chessPiece1.getHeight());
 			}
 		else {
 			Container parent2 = c2.getParent();
 			parent2.add(chessPiece1);
 			}
-		//chessPiece1.setVisible(true);
 		}
     
         

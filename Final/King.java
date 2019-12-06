@@ -1,13 +1,11 @@
-public class King extends Piece {
+public class King extends Piece {// Contains the logic used for Kings
 
 private char p = 'K';
 private boolean white;
 private int value=20;
 
 public King (int i, int j,boolean w){
-	this.setX(i);
-	this.setY(j);
-	this.setW(w);
+	super(i,j,w);
 	}
 public King (int i, int j,boolean w,boolean h){
 	super(i,j,w,h);

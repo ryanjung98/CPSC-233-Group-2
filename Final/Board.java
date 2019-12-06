@@ -7,15 +7,13 @@ public class Board {
   public static ArrayList <ArrayList <Piece>> idiot; //This one will be used as a temporary array of pieces for check logic
   private boolean onBoard;
   public int turn=1;
-  //whichking will update in the is check method and be set to true if white king is in check and false if black king is in check 
-  public boolean whichKing;
-  private boolean blackCheck;
-  private boolean whiteCheck;
+
+  public boolean whichKing;  //whichking will update in the is check method and be set to true if white king is in check and false if black king is in check 
   public boolean isMate;
- // public boolean isW
- //constructor that builds initial chess board
- public Board(){
-	//System.out.println("\033[0;31m"+"hi");
+ 
+
+ public Board(){//constructor that builds initial chess board
+
 	 ArrayList<String> line= new ArrayList<String>();
    line.add("                                                    ");
    line.add("      A     B     C     D     E     F     G     H   ");
@@ -65,8 +63,8 @@ for (int i=0;i<8;i++){
 		chessBoard.get(i).add(j,null);
 		}
 	}
-	//System.out.println(chessBoard.get(1).size());
-	//rooks
+
+   //Rooks
    chessBoard.get(0).set(0,new Rook (0,0,false));
    chessBoard.get(0).set(7,new Rook (0,7,true));
    chessBoard.get(7).set(0,new Rook (7,0,false));
@@ -94,7 +92,7 @@ for (int i=0;i<8;i++){
    chessBoard.get(4).set(0,new King(4,0,false));
    chessBoard.get(4).set(7,new King(4,7,true));
    
-   //pawns
+   //Pawns
    for(int i=0; i<8;i++){
 	   chessBoard.get(i).set(1,new Pawn(i,1,false));
 	   chessBoard.get(i).set(6,new Pawn(i,6,true));
@@ -105,18 +103,18 @@ for (int i=0;i<8;i++){
    }
    
  public Board (int n){}
-   // loops through arraylist and prints board
    
-   public void printBoard (){
-	  // System.out.println("\033[H\033[2J");
+   
+   public void printBoard (){// loops through arraylist and prints board
 	   for (String s : boardPrint){
 	   System.out.println(s);}
 	   }
 	   
 	//parameter is string which is in the format "A2,B2"
 	
-	public boolean scanBoard (String s){
-		//this.turn=Game.turn;
+	public boolean scanBoard (String s){//This method checks if the inputed string which represents a move, is a valid move for that piece, considering En Passant and Castling logic.
+		//also checks if it would put itself into check, and if everything works, it makes the move and returns true indicating that it is a legal move and makes the move
+
 		boolean wTurn;
 		if (turn % 2 ==0)
 			wTurn=false;
@@ -128,13 +126,13 @@ for (int i=0;i<8;i++){
 		int k = 0;
 		int l = 0;
 		int j = 0;
-		//String [] spl = s.split(",",2);
+	
 		char x1 = s.charAt(0);
 		char y1 = s.charAt(1);
 		char x2 = s.charAt(3);
 		char y2 = s.charAt(4);
 		char piece;
-		//chessBoard indicies of pieces 
+		//Converting string into integeres corresponding to indicies of pieces on the chessboard
 		
 		
 		i=this.getXFromChar(x1);
@@ -142,22 +140,11 @@ for (int i=0;i<8;i++){
 		l=this.getYFromChar(y1);
 		k=this.getYFromChar(y2);
 		
-		//check returned expected results for A1,A3: 6,6,28,20
-		//System.out.println(i+","+j+","+l+","+k);
-		
 		int Cx1=(i/6)-1;
 		int Cx2=(j/6)-1;
 		int Cy1=(l/4)-1;
 		int Cy2=(k/4)-1;
 		
-		//second check for C;s, returned correct result 0,0,6,4
-		//System.out.println(Cx1+","+Cx2+","+Cy1+","+Cy2);
-		
-		//third check what piece is in Cx1,Cy1
-		//System.out.println(chessBoard.get(Cx1).get(Cy1).g);
-		
-		//doesnt matter whether we get the piece from the string board or the piece board because we will update after each turn 
-		//need a way to test if after a move a team will be in check.
 		piece = this.getPiece(i,l);
 		
 		//line below doesnt work because x1, y1 are chars
@@ -170,24 +157,21 @@ for (int i=0;i<8;i++){
 			
 		else if (wTurn==chessBoard.get(Cx1).get(Cy1).getW()){
 			move=getPieceMove(Cx1,Cy1,Cx2,Cy2);
-			//System.out.println(move);
 		}
-		//System.out.println(move);
-		//System.out.println(wTurn);
-		//System.out.println(chessBoard.get(Cx1).get(Cy1).getW());
+
 	if (move==true){
 			idiot =isGoingToBeInCheck(Cx1,Cy1,Cx2,Cy2) ;
 			check=isCheck(idiot);
 			isMate=isCMate();
-			//System.out.println(check+","+chessBoard.get(Cx1).get(Cy1).getW()+","+this.whichKing);
-			//System.out.println("hi");
+
 			if (check==true&& this.whichKing==chessBoard.get(Cx1).get(Cy1).getW()){
-				//System.out.println("offboard");
 				move=false;
 				}
+
 			if (Cx1==Cx2&&Cy1==Cy2){
 				move=false;
 				}
+
 			else if (check==false||(check==true&&this.whichKing!=chessBoard.get(Cx1).get(Cy1).getW())){
 			turn+=1;
 			if (chessBoard.get(Cx2).get(Cy1)!=null){
@@ -293,17 +277,16 @@ for (int i=0;i<8;i++){
 		
 //this method returns true if piece p in x1,y1 can move to x2,y2	
 	
-public boolean getPieceMove(int x1, int y1, int x2, int y2){//I think this method is redundant
+public boolean getPieceMove(int x1, int y1, int x2, int y2){//this method is a shortcut for calling the canMove function for a piece
 	boolean move;
 	
 		move = chessBoard.get(x1).get(y1).canMove(x2,y2);
-		//ASystem.out.println(chessBoard.get(x1).get(y1).getX()+","+chessBoard.get(x1).get(y1).getY());
-		//System.out.println(chessBoard.get(x1).get(y1).getP());
+
 		return move;
 		}
-// this will update the text based board printed to the console from the piece array 	
 
-public void updateBoardFromArray(){
+
+public void updateBoardFromArray(){// this will update the text based board printed to the console from the piece array 	
 	char piece;
 	String line;
 	String temp;
@@ -328,17 +311,17 @@ public void updateBoardFromArray(){
 		}
 	
 	}
-//this returns the integer index of x
 
-public int getXFromChar(char x){
+
+public int getXFromChar(char x){//this returns the integer index of x
 int i=0;
 for (char letter: boardPrint.get(1).toCharArray()){
 					if (letter==x){
 						i=boardPrint.get(1).indexOf(letter);}}
 		return i;
 		}
-//this returns the integer index of y
-public int getYFromChar(char y){
+
+public int getYFromChar(char y){//this returns the integer index of y
 	int i=0;
 	int n=0;
 	for (String line : boardPrint){
@@ -349,26 +332,21 @@ public int getYFromChar(char y){
 		}
 	return n;
 	}
-//this returns the character of the piece n the console board
 
-public char getPiece(int x, int y){
+
+public char getPiece(int x, int y){//this returns the character of the piece on the console board
 	char piece = boardPrint.get(y).charAt(x);
 	return piece;		
 }
 //getter
 
-public boolean getOnB(){
+public boolean getOnB(){//this only tells if after a move happens one team is in check, this is only used in the game class, there is another method.
 	return this.onBoard;
 	}
-//this only tells if after a move happens one team is in check, this is only used in the game class, there is another method.
+
 
 public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
-	//System.out.println(chess);
 	int n = 0;
-	//System.out.println("ARRAY BEING CHECKED:");
-	//printArray(chess);
-	//System.out.println(chess.get(1).size());
-	//System.out.println(chessBoard.get(1).size());
 	idiot=chess;
 	for (int i=0; i<chess.size();i++){
 		for (int j=0; j<chess.get(i).size();j++){
@@ -381,7 +359,6 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 							if (chess.get(k).get(l)!=null){
 								if (chess.get(i).get(j).getW()!=chess.get(k).get(l).getW()){//If the king and the piece are different colors
 									if (chess.get(k).get(l).canMove(i,j)){//If piece can move to king position
-										//System.out.println("THREAT: "+chess.get(k).get(l).canMove(i,j)+","+chess.get(k).get(l).getP()+","+k+","+l);
 										n+=1;
 										this.whichKing = chess.get(i).get(j).getW();
 									}
@@ -390,27 +367,25 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 					}}
 				}}
 		}}}
-		//The above series of loops checks if 
+		//The above series of loops that check if the king is in check or not
 		if (n>=1){
 			idiot=chessBoard;
-	//	System.out.println("Is in check");
 			return true;
 		}
 		else{
 			idiot=chessBoard;
-		//	System.out.println("Is not in check");
 			return false;
 		}
 	}
 public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, int y2){
+	//This method returns a copy of the chessboard after a move is made. It is used to determine if the move would put the player's own king into check
 	
 	ArrayList <ArrayList <Piece>> dummy = new ArrayList<ArrayList<Piece>>();
-	//initializes a dummy chessboard to what it currently is 
+	//initializes a dummy chessboard to be the same as the current board
 	for (int i=0;i<8;i++){
 	dummy.add(new ArrayList<Piece>());
 	for (int j=0;j<8;j++){
 		dummy.get(i).add(j,null);
-		//System.out.println("test");
 		}
 	}
 	
@@ -438,7 +413,7 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 		
 	}}//Copying the array
 	//now moves the possible move x1 and x2
-	//System.out.println("test");	
+
 	dummy.get(x1).get(y1).setX(x2);
 	dummy.get(x1).get(y1).setY(y2);
 	dummy.get(x2).set(y2,dummy.get(x1).get(y1));
@@ -448,7 +423,7 @@ public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, 
 	return dummy;
 }
 
-public void toggleEnPassant(int turny){
+public void toggleEnPassant(int turny){//Sets En Passant for all pawns owned by the player who's turn it is to false
 	boolean wite=true;
 	if(turny%2==0)
 		wite=false;
@@ -458,10 +433,10 @@ public void toggleEnPassant(int turny){
 			if (chessBoard.get(i).get(j)!=null){
 				if ((chessBoard.get(i).get(j).getP()=='P')&&(chessBoard.get(i).get(j).getW()==wite))
 						chessBoard.get(i).get(j).setEnPassant(false);
-//Goes through each pawn and toggles enpassant off if it is their turn
+
 }}}}
 
-public boolean isCMate(){
+public boolean isCMate(){//Checks if the current state of the board is in checkmate
 	int n=0;
 		for(int i=0; i<chessBoard.size();i++){
 			for (int j=0; j<chessBoard.get(i).size();j++){
@@ -492,7 +467,7 @@ else {
 	return true;}
 
 }
-public void printArray(ArrayList <ArrayList <Piece>> chess){
+public void printArray(ArrayList <ArrayList <Piece>> chess){//prints the text based version of the board to the console
 	for (int i=0; i<8;i++){
 		for (int j=0;j<8;j++){
 			if (chess.get(i).get(j)!=null){

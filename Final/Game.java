@@ -9,17 +9,16 @@ public static String player = "";
 public static void main (String[] args){
 	int game2Loop=0;
 	boolean game=true;
+
+	//Used to indicate the type of game being played
 	boolean game1=false;
 	boolean game2=false;
 	boolean game3=false;
+	
 	boolean canMove;
 	Board b = new Board();
-	//GUI gui = new GUI();
-	//gui.Start();
-	//gui.main("123");
-	//String[] arguments = new String[]{};
+
 	
-	//System.out.println(b.chessBoard.size());
 	AI AI_game3W=new AI(true);
 	AI AI_game3B=new AI(false);
 	AI AI_game2= new AI(false);
@@ -27,9 +26,9 @@ public static void main (String[] args){
 	String move="";
 	
 	turn =b.getTurn();
-	//System.out.println("\033[0;31m"+"hi");
 	b.printBoard();
-	
+
+	//Asking what type of game the player wants to play and sets the type of game based on the input
 	System.out.println("Which type of Game would you like to play");
 	System.out.println("(1) Player v.s Player");
 	System.out.println("(2) Player v.s AI");
@@ -45,7 +44,6 @@ public static void main (String[] args){
 		Scanner keyboard3=new Scanner(System.in);
 		playerColor = keyboard3.nextLine();
 		if (playerColor.equals("black")|| playerColor.equals("white") || playerColor.equals("Black") || playerColor.equals("White")){
-			//System.out.println(playerColor);
 			game2Loop+=1;
 			if (playerColor.equals("black") || playerColor.equals("Black"))
 			{AI_game2=new AI(true);}
@@ -54,7 +52,8 @@ public static void main (String[] args){
 		}
 		}
 	else if (type==3){game3=true;}
-	//only for player vs player
+
+	//for player vs player game
 	while (game==true){
 		if (turn % 2 ==0)
 		{
@@ -80,7 +79,7 @@ public static void main (String[] args){
 		else if (game1==true){player = "P1";}	
 		else if (game3==true){player="AI1";}
 		}
-	//System.out.println("test");
+
 	canMove=false;
 	while(canMove==false){
 
@@ -90,37 +89,29 @@ public static void main (String[] args){
 	move=keyboard2.nextLine();}
 	
 	else if (game2==true&&player=="AI"){
-		//System.out.println(player+" made a Move! Your turn!");
 		move=AI_game2.NextMove();
 		}
 	else if (game3==true&&isW==true){
-		//System.out.println("AI Player 1 is deciding where to move");
-		//Thread.sleep(3000);
 		move=AI_game3W.NextMove();
 		}
 	else if (game3==true && isW==false){
-		//System.out.println("AI Player 2 is deciding where to move");
-		////Thread.sleep(3000);
+
 		move=AI_game3B.NextMove();
 		}
-		//System.out.println(move);
 	canMove=b.scanBoard(move);
 	
-	// if (b.isCheck(Board.chessBoard)){
-		// System.out.println("Youre in Check, Try again!");
-		// System.out.println("Youre in Check!");
-		// }
 	if (canMove){
 	turn+=1;
 	b.printBoard();
-	//gui.movement(move);
+
 	try {java.util.concurrent.TimeUnit.SECONDS.sleep(2);}
 	catch(Exception e){}
-	b.toggleEnPassant(turn);//invokes method in Board class used to switch all enpassant of players pawns to false if it is now their turn
+
+	b.toggleEnPassant(turn);//invokes method in Board class used to switch all enpassant of player's pawns to false if it is now their turn
 	}
 	else {System.out.println("Invalid move, Try again!");}
 	}
-	if(b.isMate){
+	if(b.isMate){//If the board is in a state of checkmate, the game ends
 		System.out.println("Checkmate");
 		game=false;
 	}

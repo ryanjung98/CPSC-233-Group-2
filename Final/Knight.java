@@ -1,4 +1,4 @@
-public class Knight extends Piece {
+public class Knight extends Piece {// Contains the logic used for Knights
 
 private char p = 'N';
 private boolean move;

@@ -1,4 +1,4 @@
-public class Pawn extends Piece {
+public class Pawn extends Piece {// Contains the logic used for Pawns
 
 private char p = 'P';
 private boolean move;
@@ -77,7 +77,6 @@ int n=0;
 				}
 				else if (Board.chessBoard.get(x).get(y+1)!=null && Board.chessBoard.get(x).get(y+1).getW()!=this.getW() && Board.chessBoard.get(x).get(y+1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y+1).getEnPassant()){
-
 						n+=1;
 					}
 					//for en passant
@@ -88,7 +87,6 @@ int n=0;
 					}
 				else if (Board.chessBoard.get(x).get(y+1)!=null && Board.chessBoard.get(x).get(y+1).getW()!=this.getW() && Board.chessBoard.get(x).get(y+1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y+1).getEnPassant()){
-
 						n+=1;
 					}
 					//for en passant
@@ -110,7 +108,6 @@ int n=0;
 				}
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-
 						n+=1;
 					}
 					//for en passant
@@ -121,7 +118,6 @@ int n=0;
 					n+=1;
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-
 						n+=1;
 					}
 					//for en passant
@@ -135,13 +131,12 @@ int n=0;
 				n+=1;
 			}
 			else if (y==this.getY()+1 && x==(this.getX()+1)){
-//checks to see if the pawn can move diagonal
+//checks to see if the pawn can move diagonally to take a piece
 				if (Board.idiot.get(x).get(y)!=null&&Board.idiot.get(x).get(y).getW()!=this.getW()){
 					n+=1;
 				}
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-
 						n+=1;
 					}
 					//for en passant
@@ -153,7 +148,6 @@ int n=0;
 					n+=1;}
 				else if (Board.chessBoard.get(x).get(y-1)!=null && Board.chessBoard.get(x).get(y-1).getW()!=this.getW() && Board.chessBoard.get(x).get(y-1).getP()=='P'){
 					if(Board.chessBoard.get(x).get(y-1).getEnPassant()){
-
 						n+=1;
 					}
 					//for en passant
