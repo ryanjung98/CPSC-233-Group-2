@@ -1,4 +1,10 @@
-public class AI extends Board{//This class is used to generate moves automatically for the game modes that use the AI
+/*
+ * We created the AI Class mainly because we wanted to the computer generate moves automatically for the game modes that use AI
+*/
+
+
+
+public class AI extends Board{
 	
 private boolean color;
 
