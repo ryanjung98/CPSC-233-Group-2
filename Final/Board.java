@@ -1,3 +1,9 @@
+/*
+ * The Board Class is an 8x8 set of boxes to containing all active chess pieces 
+*/
+
+
+
 import java.util.ArrayList;
 import java.util.*;
 import java.lang.StringBuilder;
@@ -105,15 +111,23 @@ for (int i=0;i<8;i++){
  public Board (int n){}
    
    
-   public void printBoard (){// loops through arraylist and prints board
+	/*
+ * This method loops through the arrayList and prints the Board 
+*/
+   public void printBoard (){
 	   for (String s : boardPrint){
 	   System.out.println(s);}
 	   }
 	   
 	//parameter is string which is in the format "A2,B2"
 	
-	public boolean scanBoard (String s){//This method checks if the inputed string which represents a move, is a valid move for that piece, considering En Passant and Castling logic.
-		//also checks if it would put itself into check, and if everything works, it makes the move and returns true indicating that it is a legal move and makes the move
+	/*
+ * The Method scanBoard checks if the inputed string which represents a move, is a valid move for that piece, considering En Passant and Castling Logic,
+ also checks if it would put itself into check, and if everything works, 
+ it makes the move and returns true indicating that it is a legal move and makes the move
+*/
+	
+	public boolean scanBoard (String s){
 
 		boolean wTurn;
 		if (turn % 2 ==0)
@@ -274,8 +288,11 @@ for (int i=0;i<8;i++){
 		idiot=chessBoard;
 		return move;
 	}
-		
-//this method returns true if piece p in x1,y1 can move to x2,y2	
+	
+	
+	/*
+ * The getPieceMove method returns true if piece p in x1,y1 can move to x2,y2
+*/	
 	
 public boolean getPieceMove(int x1, int y1, int x2, int y2){//this method is a shortcut for calling the canMove function for a piece
 	boolean move;
@@ -332,15 +349,23 @@ public int getYFromChar(char y){//this returns the integer index of y
 		}
 	return n;
 	}
+	
+	/*
+ * The getPiece Method returns the character of the piece on the console board
+*/
 
 
-public char getPiece(int x, int y){//this returns the character of the piece on the console board
+public char getPiece(int x, int y){
 	char piece = boardPrint.get(y).charAt(x);
 	return piece;		
 }
 //getter
+	
+	/*
+ * This Getter Method only returns if after the move happens one team is in check, this is only used in the Game Class, there is another method.
+*/
 
-public boolean getOnB(){//this only tells if after a move happens one team is in check, this is only used in the game class, there is another method.
+public boolean getOnB(){
 	return this.onBoard;
 	}
 
@@ -377,8 +402,13 @@ public boolean isCheck(ArrayList <ArrayList <Piece>> chess){
 			return false;
 		}
 	}
+	
+		/*
+ * The method  isGoingToBeInCheck returns a copy of the ChessBoard after a move is made, its used to determine if the move would put the player's own king into check
+*/
+
 public ArrayList <ArrayList <Piece>> isGoingToBeInCheck(int x1, int y1, int x2, int y2){
-	//This method returns a copy of the chessboard after a move is made. It is used to determine if the move would put the player's own king into check
+	
 	
 	ArrayList <ArrayList <Piece>> dummy = new ArrayList<ArrayList<Piece>>();
 	//initializes a dummy chessboard to be the same as the current board
@@ -467,7 +497,12 @@ else {
 	return true;}
 
 }
-public void printArray(ArrayList <ArrayList <Piece>> chess){//prints the text based version of the board to the console
+	
+		/*
+ * The method printArray prints the text based version of the board to the console
+*/
+
+public void printArray(ArrayList <ArrayList <Piece>> chess){
 	for (int i=0; i<8;i++){
 		for (int j=0;j<8;j++){
 			if (chess.get(i).get(j)!=null){
