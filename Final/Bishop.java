@@ -1,3 +1,8 @@
+/*
+ * The Bishop class has the properties of the Piece Bishop to implement it in the Board of Arrays
+*/
+
+
 import java.lang.Math;
 public class Bishop extends Piece {//Used for pieces of type Bishop
 private int value=3;
@@ -14,10 +19,20 @@ public Bishop (int i, int j, boolean w){
 public Bishop (int i, int j,boolean w,boolean h){
 	super(i,j,w,h);
 }
+	
+	/*
+ * The Method getValue get the Value of the Bishop
+*/
+
 
 public int getValue(){
 	return this.value;
 	}
+	
+	/*
+ * The canMove method checks to see if the Bishop can move to that specific space
+*/
+
 
 public boolean canMove(int x, int y){
 	int extra=1;
