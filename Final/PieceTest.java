@@ -1,95 +1,120 @@
+/*
+ * The PieceTest Class is used to test the functionality of the Piece class
+*/
+
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class PieceTest extends Piece {
+class PieceTest {
 	
-	// Tests the Getter method to see if it returns this.white
+	
+	/*
+ * The Test method testCanMove checks to see where Any piece move, and if its allowed to move there 
+*/
+
+	
 	
 	@Test
-	void testGetW() {
-		assertSame(this.white,getW());
-	}
-	
-	// Tests the Getter method to see if it returns the value this.piece
-
-	@Test
-	void testGetP() {
-		assertSame(this.piece,getP());
-	}
-	
-	// Tests the Getter method to see if it returns the value this.xpos
-
-	@Test
-	void testGetX() {
-		assertSame(this.xpos,getX());
-	}
-	
-	// Tests the Getter method to see if it returns the value this.ypos
-
-	@Test
-	void testGetY() {
-		assertSame(this.ypos,getY());
-	}
-	
-	// Tests the Getter method to see if it returns the value this.hasMoved
-
-	@Test
-	void testGetHasMoved() {
-		assertSame(this.hasMoved,getHasMoved());
-	}
-
-	@Override
-	public boolean canMove(int i, int j) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setEnPassant(boolean boo) {
-		// TODO Auto-generated method stub
+	void testCanMove() {
+		//assertSame(this.white,getW());
+		Bishop whiteBishop1 = new Bishop(2, 3, true);
+		Bishop whiteBishop2 = new Bishop(3, 4, true);
+		
+		assertEquals(whiteBishop1.canMove(3, 4), false);
 		
 	}
-
-	@Override
-	public boolean getEnPassant() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	// Tests to see if the Setter method updates the value of the variable to this.piece
 	
 	@Test
-	void testSetP() {
-		assertEquals(this.piece,getP());
+	void testCanMoveKing()
+	{
+		
+	King k1 = new King(3,4, false);
+	
+	assertEquals(k1.getW(), false);
+		
+		
+		
 	}
 	
-	// Tests to see if the Setter method updates the value of the variable to this.xpos
+	/*
+ * The testGetW checks to see if the white pieces are placed correctly on the board
+*/
 
+	
 	@Test
-	void testSetX() {
-		assertEquals(this.xpos,getX());
+	void testGetW()
+	{
+		Bishop blackBishop1 = new Bishop(2,3, false);
+		assertEquals(blackBishop1.getW(),false);
 	}
 	
-	// Tests to see if the Setter method updates the value of the variable to this.ypos
-
 	@Test
-	void testSetY() {
-		assertEquals(this.ypos,getY());
+	void testGetWRook() {
+		
+		Rook r1 = new Rook(0, 0, false);
+		assertEquals(r1.getW(), false);
+		
 	}
 	
-	// Tests to see if the Setter method updates the value of the variable to this.hasMoved
-
+	@Test 
+	void testGetWRook2() {
+		Rook r2 = new Rook(8, 0, true);
+		assertEquals(r2.getW(), true);
+		}
+	
 	@Test
-	void testSetHasMoved() {
-		assertEquals(this.hasMoved,getHasMoved());
+	void testGetWPawn() {
+		Pawn p1 = new Pawn(7,0, true);
+		
+		assertEquals(p1.getW(), true);
+		
+		
 	}
+	
+	/*
+ * The testGetP checks to see if the pieces are placed in their right space
+*/
+
+	
+	
+	@Test
+	void testGetP() {
+		Pawn p2 = new Pawn(0, 0, true);
+		
+		assertEquals(p2.getP(), 'P');
+	}
+	
+	
+	@Test 
+	void testGetPK() {
+		Knight k1 = new Knight(1, 1, true);
+		
+		assertEquals(k1.getP(), 'N');
+	}
+	
+	@Test
+	void testGetPP() {
+		Pawn pp1 = new Pawn(2,2, true);
+		
+		assertEquals(pp1.getP(), 'P');
+	}
+	
+	
+	@Test
+	void testGetPB1() {
+		Bishop b1 = new Bishop(2,3, true);
+		
+		assertEquals(b1.getP(), 'B');
+	}
+
+
+	
+	
+	
+	
+
 
 }
