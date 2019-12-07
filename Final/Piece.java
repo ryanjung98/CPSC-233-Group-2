@@ -8,11 +8,11 @@ public abstract class Piece {
 	
   //INSTANCE VARIABLES
 	
-  public boolean white; //boolean for if white or black
-  public int xpos; public int ypos; //positions of piece between 1 and 8
-  public boolean danger;
-  public char piece;
-  public boolean hasMoved;
+  private boolean white; //boolean for if white or black
+  private int xpos; private int ypos; //positions of piece between 1 and 8
+  private boolean danger;
+  private char piece;
+  private boolean hasMoved;
   
   //CONSTRUCTORS
   
@@ -47,20 +47,38 @@ public abstract int getValue();
 public abstract boolean canMove(int i, int j);
 public abstract void setEnPassant(boolean boo);//had to also make useless overide methods for all the pieces
 public abstract boolean getEnPassant();//had to also make useless overide methods for all the pieces
-
+	
+/* 
+The method getW returns whether the piece is a White piece/Black Piece
+*/
 public boolean getW(){
 	return this.white;
 	}
 	public char getP(){
 		return this.piece;
 		}
+	
+	/* 
+ * 
+ The method getX return the x position of the Piece
+*/
 public int getX(){
 	return this.xpos;
 	}  
 	
+	/* 
+ * 
+ The method getY returns the y position of the Piece
+*/
+	
 public int getY(){
 	return this.ypos;
 	}
+	
+	/* 
+ * 
+ The method getHasMoved checks to see if the Piece has moved
+*/
 public boolean getHasMoved(){
 	return this.hasMoved;
 }
