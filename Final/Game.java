@@ -1,3 +1,11 @@
+	/*
+ * The Game class controls the flow of a game,
+ It keeps track of all the game moves, which player has the current turn, and the final result of the game, 
+ also it allows you to choose between the 3 different modes we have AI vs AI, Player vs Player and Player vs AI
+*/
+
+
+
 import java.util.Scanner;
 public class Game {
 	
@@ -27,8 +35,11 @@ public static void main (String[] args){
 	
 	turn =b.getTurn();
 	b.printBoard();
+	
+	/*
+ * Asking what type of game the player wants to play and sets the type of game based on the input
+*/
 
-	//Asking what type of game the player wants to play and sets the type of game based on the input
 	System.out.println("Which type of Game would you like to play");
 	System.out.println("(1) Player v.s Player");
 	System.out.println("(2) Player v.s AI");
